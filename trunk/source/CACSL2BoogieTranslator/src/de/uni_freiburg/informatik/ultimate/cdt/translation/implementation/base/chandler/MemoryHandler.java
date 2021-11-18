@@ -318,6 +318,8 @@ public class MemoryHandler {
 	 */
 	private static final String ADDR = "~addr";
 
+	private String testProcName = "";
+
 	/**
 	 * Add also implementations of malloc, free, write and read functions. TODO: details
 	 */
@@ -2029,8 +2031,29 @@ public class MemoryHandler {
 			//mProcedureManager.constructBody(...);
 		}
 
-		mProcedureManager.addSpecificationsToCurrentProcedure(swrite);
+		/*SVVRL*/
+		final AssignmentStatement as = MemoryHandler.constructOneDimensionalArrayUpdate(loc,
+				indices.get(0), heapDataArray.getVariableLHS(), values.get(0));
+
+		final Body impBody = mProcedureManager.constructBody(loc,new VariableDeclaration[] {new VariableDeclaration(loc, 
+				new Attribute[0], new VarList[0])}, new AssignmentStatement[] { as }, procName);
+
+		mProcedureManager.addSpecificationsAndBodyToCurrentProcedure(swrite, impBody);
+		/*
+		System.out.println("procName");
+		System.out.println(procName);
+		testProcName = procName;
+		mProcedureManager.testUse(procName);*/
+		// mProcedureManager.addSpecificationsToCurrentProcedure(swrite);
 		mProcedureManager.endCustomProcedure(main, procName);
+	}
+
+	public ProcedureManager returnProcedureManager(){
+		return mProcedureManager;
+	}
+
+	public String returnProcName(){
+		return testProcName;
 	}
 
 	private static List<Expression> constructConjunctsForWriteEnsuresSpecification(final ILocation loc,

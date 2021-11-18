@@ -158,6 +158,26 @@ public class ProcedureManager {
 
 		return result;
 	}
+//SVVRL
+	/*public void testUse(final String methodName) {
+		System.out.println("Start testUse");
+		BoogieProcedureInfo result = mProcedureNameToProcedureInfo.get(methodName);
+		System.out.println("methodName");
+		System.out.println(methodName);
+		if (result == null) {
+			System.out.println("new method");
+			result = new BoogieProcedureInfo(methodName);
+			mProcedureNameToProcedureInfo.put(methodName, result);
+		}
+		else{
+			System.out.println(result.getDeclaration());
+			System.out.println(result.getDeclaration().getBody());
+			System.out.println(result.getDeclaration().getBody() != null);
+		}
+		System.out.println(methodName);
+		System.out.println(result);
+		System.out.println("End testUse");
+	}*/
 
 	/**
 	 * expects that we have already constructed a ProcedureInfo for the given name
@@ -283,9 +303,20 @@ public class ProcedureManager {
 			} else {
 				newSpecWithExtraEnsuresClauses = newSpec;
 			}
-			updatedDeclarations.add(new Procedure(loc, oldProcDecl.getAttributes(), procedureName,
+			
+			/*System.out.println(procedureName);
+			System.out.println(result.getDeclaration().getBody());
+			System.out.println(result.getDeclaration().getBody() != null);*/
+			
+				/*BoogieProcedureInfo result = mProcedureNameToProcedureInfo.get(procedureName);
+				updatedDeclarations.add(new Procedure(loc, oldProcDecl.getAttributes(), procedureName,
+					oldProcDecl.getTypeParams(), oldProcDecl.getInParams(), oldProcDecl.getOutParams(),
+					newSpecWithExtraEnsuresClauses, result.getDeclaration().getBody()));
+			*/
+				updatedDeclarations.add(new Procedure(loc, oldProcDecl.getAttributes(), procedureName,
 					oldProcDecl.getTypeParams(), oldProcDecl.getInParams(), oldProcDecl.getOutParams(),
 					newSpecWithExtraEnsuresClauses, null));
+			
 		}
 		return updatedDeclarations;
 	}
@@ -502,6 +533,23 @@ public class ProcedureManager {
 		procInfo.resetDeclaration(newDecl);
 	}
 
+	/*SVVRL*/
+	public void addSpecificationsAndBodyToCurrentProcedure(final List<Specification> specs, final Body body) {
+		assert !isGlobalScope();
+		final BoogieProcedureInfo procInfo = mCurrentProcedureInfo;
+		final Procedure oldDecl = procInfo.getDeclaration();
+
+		final List<Specification> newSpecs = new ArrayList<>();
+		newSpecs.addAll(Arrays.asList(oldDecl.getSpecification()));
+		newSpecs.addAll(specs);
+
+		final Procedure newDecl = new Procedure(oldDecl.getLoc(), oldDecl.getAttributes(), oldDecl.getIdentifier(),
+				oldDecl.getTypeParams(), oldDecl.getInParams(), oldDecl.getOutParams(),
+				newSpecs.toArray(new Specification[newSpecs.size()]), body);
+
+		procInfo.resetUncheckDeclaration(newDecl);
+	}
+
 	BoogieProcedureInfo getCurrentProcedureInfo() {
 		return mCurrentProcedureInfo;
 	}
@@ -553,6 +601,12 @@ public class ProcedureManager {
 		public void resetDeclaration(final Procedure declaration) {
 			assert declaration.getSpecification() != null;
 			assert declaration.getBody() == null;
+			mDeclaration = declaration;
+		}
+
+		/*SVVRL*/
+		public void resetUncheckDeclaration(final Procedure declaration) {
+			assert declaration.getSpecification() != null;
 			mDeclaration = declaration;
 		}
 
