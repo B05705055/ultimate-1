@@ -35,6 +35,6 @@
 		<relativePath>../BA_MavenParentUltimate/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>de.uni_freiburg.informatik.ultimate.plugins.generator.cacsl2boogietranslator</artifactId>
+	<artifactId>tw.ntu.svvrl.ultimate.svvrlmodelchecker</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

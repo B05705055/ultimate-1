@@ -85,7 +85,7 @@ public class CACSL2BoogieTranslator implements IGenerator {
 
 	@Override
 	public IPreferenceInitializer getPreferences() {
-		return new CACSLPreferenceInitializer();
+		return new SVVRLPreferenceInitializer();
 	}
 
 	@Override
