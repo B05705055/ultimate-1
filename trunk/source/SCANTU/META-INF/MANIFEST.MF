@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SCANTU
+Bundle-SymbolicName: tw.ntu.svvrl.ultimate.scantu
+Bundle-Version: 0.2.1
+Require-Bundle:
+ de.uni_freiburg.informatik.ultimate.lib.core,
+ de.uni_freiburg.informatik.ultimate.core
+Export-Package: 
+
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: tw.ntu.svvrl.ultimate.scantu
