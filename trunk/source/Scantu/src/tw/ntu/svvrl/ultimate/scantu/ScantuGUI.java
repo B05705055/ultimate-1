@@ -1,6 +1,5 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
