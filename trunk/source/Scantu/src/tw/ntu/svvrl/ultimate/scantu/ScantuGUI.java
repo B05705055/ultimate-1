@@ -1,48 +1,48 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
-import org.eclipse.swt.widgets.Dialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class ScantuGUI extends Dialog {
+public class ScantuGUI {
 
-	protected Object result;
-	protected Shell shell;
+	protected Shell shlScantu;
 
 	/**
-	 * Create the dialog.
-	 * @param parent
-	 * @param style
+	 * Launch the application.
+	 * @param args
 	 */
-	public ScantuGUI(Shell parent, int style) {
-		super(parent, style);
-		setText("SWT Dialog");
+	public static void main(String[] args) {
+		try {
+			ScantuGUI window = new ScantuGUI();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Open the dialog.
-	 * @return the result
+	 * Open the window.
 	 */
-	public Object open() {
+	public void open() {
+		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		Display display = getParent().getDisplay();
-		while (!shell.isDisposed()) {
+		shlScantu.open();
+		shlScantu.layout();
+		while (!shlScantu.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
-		return result;
 	}
 
 	/**
-	 * Create contents of the dialog.
+	 * Create contents of the window.
 	 */
-	private void createContents() {
-		shell = new Shell(getParent(), getStyle());
-		shell.setSize(450, 300);
-		shell.setText(getText());
+	protected void createContents() {
+		shlScantu = new Shell();
+		shlScantu.setSize(720, 480);
+		shlScantu.setText("Source Code Analyzer NTU");
 
 	}
 
