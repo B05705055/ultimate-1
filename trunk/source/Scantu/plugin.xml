@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
+            id="tw.ntu.svvrl.ultimate.scantu.views.LoggingView"
+            name="Logging Window"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="de.uni_freiburg.informatik.ultimate.ep.controller">
+      <impl
+            class="tw.ntu.svvrl.ultimate.scantu.ScantuController"
+            isGraphical="true"
+            preference="100">
+      </impl>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="tw.ntu.svvrl.ultimate.scantu.ScantuDefaultPerspective"
+            id="tw.ntu.svvrl.ultimate.scantu.ScantuDefaultPerspective"
+            name="default perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="tw.ntu.svvrl.ultimate.scantu.ScantuDefaultPerspective">
+      </perspectiveExtension>
+   </extension>
 
 </plugin>

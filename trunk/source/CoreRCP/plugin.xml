@@ -23,9 +23,14 @@
    <extension point="org.eclipse.core.runtime.products" id="Debug">
       <product application="de.uni_freiburg.informatik.ultimate.core.CoreRCP" name="Ultimate-Debug">
          <property name="appName" value="Ultimate-Debug" />
-         <property name="aboutImage" value="icons/about.gif" />
-         <property name="aboutText"
-               value="Ultimate Ultimate is a tool for model checking and static program analysis. It provides multiple toolchains which check properties or transform input files." />
+         <property
+               name="aboutImage"
+               value="icons/about.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="Ultimate Ultimate is a tool for model checking and static program analysis. It provides multiple toolchains which check properties or transform input files.">
+         </property>
         </product>
    </extension>
    
@@ -65,6 +70,18 @@
   <!--The core should load its preference defaults the RCP way because it already depends on RCP and we can ignore the conflict between logging depending on settings and vice versa-->
    <extension point="org.eclipse.core.runtime.preferences">
       <initializer class="de.uni_freiburg.informatik.ultimate.core.coreplugin.preferences.CorePreferenceInitializer"/>
+   </extension>
+   <extension
+         id="ScantuModelChecker"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="de.uni_freiburg.informatik.ultimate.core.CoreRCP"
+            name="Scantu-ModelChecker">
+         <property
+               name="appName"
+               value="Scantu-ModelChecker">
+         </property>
+      </product>
    </extension>
   
   
