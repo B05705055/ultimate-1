@@ -54,6 +54,7 @@ import de.uni_freiburg.informatik.ultimate.gui.actions.ResetAndRedoToolChainNewT
 import de.uni_freiburg.informatik.ultimate.gui.actions.ResetAndRedoToolChainOldTCAction;
 import de.uni_freiburg.informatik.ultimate.gui.actions.ResetSettingsAction;
 import de.uni_freiburg.informatik.ultimate.gui.actions.SaveSettingsAction;
+import de.uni_freiburg.informatik.ultimate.gui.actions.Scantu;
 
 /**
  * The class that handles the actions and fills the action bars.
@@ -80,6 +81,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction mSaveSettings;
 	private IWorkbenchAction mResetSettings;
 	private IWorkbenchAction mCancelToolchain;
+	
+	// (svvrl) Add the plug-in you want to use here
+	private IWorkbenchAction mScantu;
 
 	public ApplicationActionBarAdvisor(final IActionBarConfigurer configurer, final ICore<RunDefinition> icc,
 			final GuiController controller, final ILogger logger) {
@@ -109,6 +113,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		mSaveSettings = registerAction(new SaveSettingsAction(window, mCore));
 		mResetSettings = registerAction(new ResetSettingsAction(mCore));
 		mCancelToolchain = registerAction(new CancelToolchainAction(window, mController, mLogger));
+		
+		// (svvrl) Add the plug-in you want to use here
+		mScantu = registerAction(new Scantu(window, mCore));
 	}
 
 	private IWorkbenchAction registerAction(final IWorkbenchAction action) {
@@ -143,11 +150,18 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 		final MenuManager helpMenu = new MenuManager("&Help", "help");
 		helpMenu.add(mAboutAction);
+		
+		// (svvrl) Add the plug-in you want to use here
+		final MenuManager pluginMenu = new MenuManager("&Plug-in", "plugin");
+		pluginMenu.add(mScantu);
 
 		menuBar.add(fileMenu);
 		menuBar.add(settingsMenu);
 		menuBar.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		menuBar.add(helpMenu);
+		
+		// (svvrl) load plug-in menu
+		menuBar.add(pluginMenu);
 
 	}
 
