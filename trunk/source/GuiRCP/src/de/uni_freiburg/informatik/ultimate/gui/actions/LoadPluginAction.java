@@ -19,7 +19,7 @@ public abstract class LoadPluginAction extends Action {
 	}
 	
 	@Override
-	public final void run() {
+	public void run() {
 		
 	}
 
