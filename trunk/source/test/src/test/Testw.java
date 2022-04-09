@@ -1,31 +1,19 @@
-package tw.ntu.svvrl.ultimate.scantu;
+package test;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
-import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
-import de.uni_freiburg.informatik.ultimate.core.model.ICore;
-import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
-public class ScantuGUI {
+public class Testw {
 
 	protected Shell shell;
-	
-	private ICore<RunDefinition> mCore;
-	private ILogger mLogger;
-	
-	public ScantuGUI(final ICore<RunDefinition> icc, final ILogger logger) {
-		mCore = icc;
-		mLogger = logger;
-	}
 
 	/**
 	 * Launch the application.
@@ -33,7 +21,7 @@ public class ScantuGUI {
 	 */
 	public static void main(String[] args) {
 		try {
-			ScantuGUI window = new ScantuGUI(null, null);
+			Testw window = new Testw();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,15 +48,20 @@ public class ScantuGUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(1080, 720);
-		shell.setText("Scantu Model Checker");
+		shell.setSize(450, 300);
+		shell.setText("SWT Application");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		Menu menu = new Menu(shell, SWT.BAR);
-		shell.setMenuBar(menu);
-		
 		Composite composite = new Composite(shell, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
+		composite.setLayout(new GridLayout(3, false));
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);

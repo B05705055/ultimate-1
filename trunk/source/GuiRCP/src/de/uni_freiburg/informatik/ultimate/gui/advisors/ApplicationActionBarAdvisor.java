@@ -115,7 +115,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		mCancelToolchain = registerAction(new CancelToolchainAction(window, mController, mLogger));
 		
 		// (svvrl) Add the plug-in you want to use here
-		mScantu = registerAction(new Scantu(window, mCore));
+		mScantu = registerAction(new Scantu(window, mCore, mController, mLogger));
 	}
 
 	private IWorkbenchAction registerAction(final IWorkbenchAction action) {
