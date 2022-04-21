@@ -71,18 +71,6 @@
    <extension point="org.eclipse.core.runtime.preferences">
       <initializer class="de.uni_freiburg.informatik.ultimate.core.coreplugin.preferences.CorePreferenceInitializer"/>
    </extension>
-   <extension
-         id="ScantuModelChecker"
-         point="org.eclipse.core.runtime.products">
-      <product
-            application="de.uni_freiburg.informatik.ultimate.core.CoreRCP"
-            name="Scantu-ModelChecker">
-         <property
-               name="appName"
-               value="Scantu-ModelChecker">
-         </property>
-      </product>
-   </extension>
   
   
 </plugin>
