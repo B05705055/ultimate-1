@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="tw.ntu.svvrl.ultimate.scantu.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="tw.ntu.svvrl.ultimate.scantu.Perspective"
+            name="Perspective"
+            id="tw.ntu.svvrl.ultimate.scantu.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="tw.ntu.svvrl.ultimate.scantu.View"
+            name="View"
+            id="tw.ntu.svvrl.ultimate.scantu.view"
+            inject="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               id="tw.ntu.svvrl.ultimate.scantu.view"
+               minimized="false"
+               relationship="left"
+               standalone="true"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="tw.ntu.svvrl.ultimate.scantu.application"
+            name="Scantu Model Checker">
+         <property
+               name="appName"
+               value="Scantu Model Checker">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
