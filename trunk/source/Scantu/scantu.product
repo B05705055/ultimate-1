@@ -11,6 +11,15 @@
       </vmArgsMac>
    </launcherArgs>
 
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
    <plugins>
    </plugins>
 
@@ -18,7 +27,6 @@
       <feature id="BA_FeatureDependenciesCommon" installMode="root"/>
       <feature id="BA_FeatureDependenciesDebugE4" installMode="root"/>
       <feature id="BA_FeatureUltimateCommon" installMode="root"/>
-      <feature id="BA_FeatureUltimateDebug" installMode="root"/>
       <feature id="ScantuFeature" installMode="root"/>
    </features>
 

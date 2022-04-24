@@ -22,10 +22,10 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="tw.ntu.svvrl.ultimate.scantu.View"
-            name="View"
-            id="tw.ntu.svvrl.ultimate.scantu.view"
-            inject="true">
+            class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
+            id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
+            name="Logging Window"
+            restorable="true">
       </view>
    </extension>
    <extension

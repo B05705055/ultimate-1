@@ -47,8 +47,6 @@ public class UltimateDefaultPerspective implements IPerspectiveFactory {
 
 	@Override
 	public void createInitialLayout(IPageLayout layout) {
-		
-		System.out.println("WWWWWWWW!!!!");
 
 		final String editorAreaId = layout.getEditorArea();
 		layout.setEditorAreaVisible(true);
