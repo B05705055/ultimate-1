@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Scantu
 Bundle-SymbolicName: tw.ntu.svvrl.ultimate.scantu;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: scantu.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.apache.felix.scr,
@@ -14,5 +13,3 @@ Require-Bundle: org.eclipse.ui,
  de.uni_freiburg.informatik.ultimate.gui
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: tw.ntu.svvrl.ultimate.scantu
-Import-Package: javax.inject
-Bundle-ActivationPolicy: lazy
