@@ -7,7 +7,11 @@ Bundle-Activator: scantu.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.apache.felix.scr,
- org.eclipse.equinox.event
+ org.eclipse.equinox.event,
+ de.uni_freiburg.informatik.ultimate.lib.core;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.smtlib;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.gui
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: tw.ntu.svvrl.ultimate.scantu
 Import-Package: javax.inject

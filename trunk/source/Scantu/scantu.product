@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Scantu Model Checker" uid="scantu" id="tw.ntu.svvrl.ultimate.scantu.product" application="tw.ntu.svvrl.ultimate.scantu.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="Scantu Model Checker" uid="scantu" id="tw.ntu.svvrl.ultimate.scantu.product" application="tw.ntu.svvrl.ultimate.scantu.application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -85,6 +85,14 @@
       <plugin id="org.w3c.dom.svg"/>
       <plugin id="tw.ntu.svvrl.ultimate.scantu"/>
    </plugins>
+
+   <features>
+      <feature id="BA_FeatureDependenciesCommon" installMode="root"/>
+      <feature id="BA_FeatureDependenciesDebugE4" installMode="root"/>
+      <feature id="BA_FeatureUltimateCommon" installMode="root"/>
+      <feature id="BA_FeatureUltimateDebug" installMode="root"/>
+      <feature id="ScantuFeature" installMode="root"/>
+   </features>
 
 
 </product>
