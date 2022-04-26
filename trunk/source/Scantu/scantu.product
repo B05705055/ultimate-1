@@ -7,11 +7,15 @@
    </configIni>
 
    <launcherArgs>
+      <programArgs>-nosplash -consoleLog
+      </programArgs>
+      <vmArgs>-Xmx4G -Xms4M
+      </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
-   <launcher>
+   <launcher name="Scantu Launcher">
       <win useIco="false">
          <bmp/>
       </win>

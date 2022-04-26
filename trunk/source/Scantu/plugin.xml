@@ -24,8 +24,7 @@
       <view
             class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
             id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
-            name="Logging Window"
-            restorable="true">
+            name="Logging Window">
       </view>
    </extension>
    <extension
