@@ -21,11 +21,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	@Override
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-		configurer.setInitialSize(new Point(400, 300));
-		configurer.setShowCoolBar(false);
-		configurer.setShowStatusLine(true);
+		configurer.setInitialSize(new Point(1080, 720));
+		configurer.setShowCoolBar(true);
+		configurer.setShowStatusLine(false);
 		configurer.setShowPerspectiveBar(true);
-		configurer.setShowProgressIndicator(true);
 		configurer.setTitle("Scantu Model Checker");
 	}
 }

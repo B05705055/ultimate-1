@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension
+         point="de.uni_freiburg.informatik.ultimate.ep.controller">
+      <impl
+            class="tw.ntu.svvrl.ultimate.scantu.scantuController"
+            isGraphical="true"
+            preference="100">
+      </impl>
+   </extension>
 
    <extension
          id="application"
@@ -22,22 +30,28 @@
    <extension
          point="org.eclipse.ui.views">
       <view
+            class="tw.ntu.svvrl.ultimate.scantu.views.FolderView"
+            id="tw.ntu.svvrl.ultimate.scantu.views.FolderView"
+            name="Folder"
+            restorable="true">
+      </view>
+      <view
             class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
             id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
-            name="Logging Window">
+            name="Logging"
+            restorable="true">
+      </view>
+      <view
+            class="tw.ntu.svvrl.ultimate.scantu.views.OperationView"
+            id="tw.ntu.svvrl.ultimate.scantu.views.OperationView"
+            name="Operation"
+            restorable="true">
       </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="*">
-         <view
-               id="tw.ntu.svvrl.ultimate.scantu.view"
-               minimized="false"
-               relationship="left"
-               standalone="true"
-               relative="org.eclipse.ui.editorss">
-         </view>
       </perspectiveExtension>
    </extension>
    <extension

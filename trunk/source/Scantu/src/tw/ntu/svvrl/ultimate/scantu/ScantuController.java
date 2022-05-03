@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+
 import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.IController;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
@@ -14,6 +18,8 @@ import de.uni_freiburg.informatik.ultimate.core.model.preferences.IPreferenceIni
 import de.uni_freiburg.informatik.ultimate.core.model.results.IResult;
 
 public class ScantuController implements IController<RunDefinition> {
+	
+	private Display mDisplay;
 
 	@Override
 	public String getPluginName() {
@@ -35,8 +41,16 @@ public class ScantuController implements IController<RunDefinition> {
 
 	@Override
 	public int init(ICore<RunDefinition> core) {
-		// TODO Auto-generated method stub
-		return 0;
+		mDisplay = PlatformUI.createDisplay();
+		try {
+			int returnCode = PlatformUI.createAndRunWorkbench(mDisplay, new ApplicationWorkbenchAdvisor());
+			if (returnCode == PlatformUI.RETURN_RESTART) {
+				return IApplication.EXIT_RESTART;
+			}
+			return IApplication.EXIT_OK;
+		} finally {
+			mDisplay.dispose();
+		}
 	}
 
 	@Override
