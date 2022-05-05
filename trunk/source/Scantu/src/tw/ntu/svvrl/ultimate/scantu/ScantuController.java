@@ -16,21 +16,28 @@ import de.uni_freiburg.informatik.ultimate.core.model.ITool;
 import de.uni_freiburg.informatik.ultimate.core.model.IToolchainData;
 import de.uni_freiburg.informatik.ultimate.core.model.preferences.IPreferenceInitializer;
 import de.uni_freiburg.informatik.ultimate.core.model.results.IResult;
+import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
+import de.uni_freiburg.informatik.ultimate.core.model.services.ILoggingService;
 
 public class ScantuController implements IController<RunDefinition> {
 	
+	public static final String PLUGIN_ID = ScantuController.class.getPackage().getName();
+	public static final String PLUGIN_NAME = "Scantu Controller";
+	
 	private Display mDisplay;
+	
+	private ILogger mLogger;
+	private ICore<RunDefinition> mCore;
+	private ILoggingService mLoggingService;
 
 	@Override
 	public String getPluginName() {
-		// TODO Auto-generated method stub
-		return null;
+		return PLUGIN_NAME;
 	}
 
 	@Override
 	public String getPluginID() {
-		// TODO Auto-generated method stub
-		return null;
+		return PLUGIN_ID;
 	}
 
 	@Override
@@ -41,9 +48,17 @@ public class ScantuController implements IController<RunDefinition> {
 
 	@Override
 	public int init(ICore<RunDefinition> core) {
+		
+		mLoggingService = core.getCoreLoggingService();
+		mLogger = mLoggingService.getControllerLogger();
+		mCore = core;
+		
 		mDisplay = PlatformUI.createDisplay();
+		final ApplicationWorkbenchAdvisor workbenchAdvisor = new ApplicationWorkbenchAdvisor();
+		workbenchAdvisor.init(mCore, this, mLogger);
+		
 		try {
-			int returnCode = PlatformUI.createAndRunWorkbench(mDisplay, new ApplicationWorkbenchAdvisor());
+			int returnCode = PlatformUI.createAndRunWorkbench(mDisplay, workbenchAdvisor);
 			if (returnCode == PlatformUI.RETURN_RESTART) {
 				return IApplication.EXIT_RESTART;
 			}

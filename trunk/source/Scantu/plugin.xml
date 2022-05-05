@@ -11,15 +11,6 @@
    </extension>
 
    <extension
-         id="application"
-         point="org.eclipse.core.runtime.applications">
-      <application>
-         <run
-               class="tw.ntu.svvrl.ultimate.scantu.Application">
-         </run>
-      </application>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             class="tw.ntu.svvrl.ultimate.scantu.Perspective"
@@ -66,18 +57,6 @@
             </command>
          </menu>
       </menuContribution>
-   </extension>
-   <extension
-         id="product"
-         point="org.eclipse.core.runtime.products">
-      <product
-            application="tw.ntu.svvrl.ultimate.scantu.application"
-            name="Scantu Model Checker">
-         <property
-               name="appName"
-               value="Scantu Model Checker">
-         </property>
-      </product>
    </extension>
 
 </plugin>

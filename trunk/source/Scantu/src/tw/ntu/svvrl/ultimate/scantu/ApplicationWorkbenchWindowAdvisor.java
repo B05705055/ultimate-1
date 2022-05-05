@@ -6,16 +6,28 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
+import de.uni_freiburg.informatik.ultimate.core.model.ICore;
+import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 
-	public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+	
+	private final ICore<RunDefinition> mCore;
+	private final ScantuController mController;
+	private final ILogger mLogger;
+
+	public ApplicationWorkbenchWindowAdvisor(final IWorkbenchWindowConfigurer configurer,
+			final ICore<RunDefinition> icc, final ScantuController controller, final ILogger logger) {
 		super(configurer);
+		mCore = icc;
+		mController = controller;
+		mLogger = logger;
 	}
 	
 	@Override
 	public ActionBarAdvisor createActionBarAdvisor(
 			IActionBarConfigurer configurer) {
-		return new ApplicationActionBarAdvisor(configurer);
+		return new ApplicationActionBarAdvisor(configurer, mCore, mController, mLogger);
 	}
 
 	@Override
@@ -25,6 +37,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowCoolBar(true);
 		configurer.setShowStatusLine(false);
 		configurer.setShowPerspectiveBar(true);
-		configurer.setTitle("Scantu Model Checker");
+		configurer.setTitle("Scantu - Source Code Analyzer NTU");
 	}
 }

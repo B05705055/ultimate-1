@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Scantu Model Checker" uid="Scantu" id="tw.ntu.svvrl.ultimate.scantu.product" application="tw.ntu.svvrl.ultimate.scantu.application" useFeatures="true" includeLaunchers="true">
+<product name="Scantu" uid="Scantu" id="de.uni_freiburg.informatik.ultimate.core.product" application="de.uni_freiburg.informatik.ultimate.core.CoreRCP" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -34,5 +34,14 @@
       <feature id="ScantuFeature" installMode="root"/>
    </features>
 
+   <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="1" />
+      <plugin id="tw.ntu.svvrl.ultimate.scantu" autoStart="true" startLevel="5" />
+   </configurations>
 
 </product>
