@@ -30,8 +30,7 @@ public class LoadFolderAction extends Action implements IWorkbenchAction {
 		selectedDir = dd.open();
 		
 		FolderView.setDir(selectedDir);
-		//System.out.println(FolderView.getDir());
-		FolderView.refreshDirectoryTree();
+		FolderView.refreshDir();
 	}
 
 	@Override
