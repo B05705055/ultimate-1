@@ -14,7 +14,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 	
 	private ILogger mLogger;
 	private ICore<RunDefinition> mCore;
-	private ApplicationWorkbenchWindowAdvisor mApplicationWorkbenchWindowAdvisor;
 	private ScantuController mController;
 	
 	public void init(final ICore<RunDefinition> icc, final ScantuController controller,

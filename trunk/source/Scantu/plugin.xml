@@ -4,7 +4,7 @@
    <extension
          point="de.uni_freiburg.informatik.ultimate.ep.controller">
       <impl
-            class="tw.ntu.svvrl.ultimate.scantu.scantuController"
+            class="tw.ntu.svvrl.ultimate.scantu.ScantuController"
             isGraphical="true"
             preference="100">
       </impl>
@@ -46,17 +46,16 @@
       </perspectiveExtension>
    </extension>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu">
-         <menu
-               label="File">
-            <command
-                  commandId="org.eclipse.ui.file.exit"
-                  label="Exit">
-            </command>
-         </menu>
-      </menuContribution>
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="de.uni_freiburg.informatik.ultimate.core.CoreRCP"
+            name="Scantu">
+         <property
+               name="appName"
+               value="Scantu">
+         </property>
+      </product>
    </extension>
 
 </plugin>

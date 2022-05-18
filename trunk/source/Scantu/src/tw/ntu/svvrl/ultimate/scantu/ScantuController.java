@@ -18,6 +18,7 @@ import de.uni_freiburg.informatik.ultimate.core.model.preferences.IPreferenceIni
 import de.uni_freiburg.informatik.ultimate.core.model.results.IResult;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILoggingService;
+import tw.ntu.svvrl.ultimate.scantu.services.ScantuService;
 
 public class ScantuController implements IController<RunDefinition> {
 	

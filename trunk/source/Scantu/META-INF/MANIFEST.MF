@@ -4,13 +4,13 @@ Bundle-Name: Scantu
 Bundle-SymbolicName: tw.ntu.svvrl.ultimate.scantu;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.apache.felix.scr,
- org.eclipse.equinox.event,
  de.uni_freiburg.informatik.ultimate.lib.core;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.smtlib;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
- de.uni_freiburg.informatik.ultimate.gui.logging;bundle-version="0.2.1"
+ de.uni_freiburg.informatik.ultimate.gui.logging;bundle-version="0.2.1",
+ org.apache.commons.io;bundle-version="2.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: tw.ntu.svvrl.ultimate.scantu
-Export-Package: tw.ntu.svvrl.ultimate.scantu
+Export-Package: tw.ntu.svvrl.ultimate.scantu,
+ tw.ntu.svvrl.ultimate.scantu.actions,
+ tw.ntu.svvrl.ultimate.scantu.views

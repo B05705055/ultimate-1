@@ -34,9 +34,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new Point(1080, 720));
+		configurer.setShowMenuBar(true);
 		configurer.setShowCoolBar(true);
-		configurer.setShowStatusLine(false);
+		configurer.setShowStatusLine(true);
 		configurer.setShowPerspectiveBar(true);
+		configurer.setShowProgressIndicator(true);
 		configurer.setTitle("Scantu - Source Code Analyzer NTU");
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Scantu" uid="Scantu" id="de.uni_freiburg.informatik.ultimate.core.product" application="de.uni_freiburg.informatik.ultimate.core.CoreRCP" useFeatures="true" includeLaunchers="true">
+<product name="Scantu" uid="Scantu" id="tw.ntu.svvrl.ultimate.scantu.product" application="de.uni_freiburg.informatik.ultimate.core.CoreRCP" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
