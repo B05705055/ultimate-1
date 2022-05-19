@@ -5,6 +5,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -13,6 +17,9 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -21,6 +28,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -30,7 +40,7 @@ import org.apache.commons.io.FilenameUtils;
 public class FolderView extends ViewPart {
 	
 	private static TreeViewer viewer;
-	private static String currentDir = "C:\\Users\\user\\Documents\\GitHub\\ultimate-1\\trunk\\source";
+	private static String currentDir = "C:\\";
 	
 	public static void setDir(String selectedDir) {
 		currentDir = selectedDir;
@@ -46,8 +56,7 @@ public class FolderView extends ViewPart {
 	}
 	
 	@Override
-	public void createPartControl(Composite parent) {	
-		//System.out.println(File.listRoots().getClass().getSimpleName());
+	public void createPartControl(Composite parent) {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         viewer.setContentProvider(new ViewContentProvider());
         viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
@@ -55,13 +64,24 @@ public class FolderView extends ViewPart {
         File path = new File(currentDir);
         viewer.setInput(path.listFiles());
         //viewer.setInput(File.listRoots());
+        
+        /*viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+				//List<Object> list = selection.toList();
+				IWorkbenchPage activePage =
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				File file = (File) selection.getFirstElement();
+				try {
+					activePage.openEditor((IEditorInput) file, "org.eclipse.ui.editorss");
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+        });*/
 	}
-	/*
-	private ImageDescriptor createImageDescriptor() {
-        Bundle bundle = FrameworkUtil.getBundle(ViewLabelProvider.class);
-        URL url = FileLocator.find(bundle, new Path("icons/folder.png"), null);
-        return ImageDescriptor.createFromURL(url);
-    }*/
 	
 	private ImageDescriptor createImageDescriptor(String fileType) {
         Bundle bundle = FrameworkUtil.getBundle(ViewLabelProvider.class);
