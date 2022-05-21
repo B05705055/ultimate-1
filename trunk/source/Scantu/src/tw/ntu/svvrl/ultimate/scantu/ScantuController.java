@@ -29,6 +29,8 @@ public class ScantuController implements IController<RunDefinition> {
 	private ILogger mLogger;
 	private ICore<RunDefinition> mCore;
 	private ILoggingService mLoggingService;
+	
+	private volatile IToolchainData<RunDefinition> mTools;
 
 	@Override
 	public String getPluginName() {

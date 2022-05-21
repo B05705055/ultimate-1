@@ -5,10 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -17,20 +13,18 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -40,7 +34,8 @@ import org.apache.commons.io.FilenameUtils;
 public class FolderView extends ViewPart {
 	
 	private static TreeViewer viewer;
-	private static String currentDir = "C:\\";
+	private static String currentDir = "C:\\Users\\user\\Downloads";
+	private static File[] inputFile;
 	
 	public static void setDir(String selectedDir) {
 		currentDir = selectedDir;
@@ -55,6 +50,14 @@ public class FolderView extends ViewPart {
         viewer.setInput(path.listFiles());
 	}
 	
+	public void setInputFile(File[] file) {
+		inputFile = file;
+	}
+	
+	public static File[] getInputFile() {
+		return inputFile;
+	}
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -65,22 +68,23 @@ public class FolderView extends ViewPart {
         viewer.setInput(path.listFiles());
         //viewer.setInput(File.listRoots());
         
-        /*viewer.addDoubleClickListener(new IDoubleClickListener() {
-			@Override
-			public void doubleClick(DoubleClickEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-				//List<Object> list = selection.toList();
-				IWorkbenchPage activePage =
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				File file = (File) selection.getFirstElement();
-				try {
-					activePage.openEditor((IEditorInput) file, "org.eclipse.ui.editorss");
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-        });*/
+        Tree tree = (Tree) viewer.getControl();
+        tree.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+              TreeItem item = (TreeItem) e.item;
+                if (item.getItemCount() > 0) {
+                    item.setExpanded(!item.getExpanded());
+                    viewer.refresh();
+                }
+                else if (item.getItemCount() == 0) {
+                	final List<File> files = new ArrayList<>();
+                	files.add((File) item.getData());
+                	setInputFile(((File[]) files.toArray(new File[files.size()])));
+                	System.out.println(getInputFile()[0]);
+                }
+            }
+        });
 	}
 	
 	private ImageDescriptor createImageDescriptor(String fileType) {
@@ -121,8 +125,19 @@ public class FolderView extends ViewPart {
 
         @Override
         public Object[] getChildren(Object parentElement) {
-            File file = (File) parentElement;
-            return file.listFiles();
+            File parentFile = (File) parentElement;
+            File[] files = parentFile.listFiles();
+            ArrayList<File> specificFiles = new ArrayList<File>();
+        	for(File file : files) {
+        		if(file.isDirectory() ||
+        			FilenameUtils.getExtension(file.getPath()).equals("c")) {
+        			specificFiles.add(file);
+        		}
+        	}
+        	File[] returnFiles = new File[specificFiles.size()];
+        	returnFiles = specificFiles.toArray(returnFiles);        	
+        	return returnFiles;
+            //return file.listFiles();
         }
 
         @Override
@@ -144,16 +159,11 @@ public class FolderView extends ViewPart {
 	
 	class ViewLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
-        //private ImageDescriptor directoryImage;
         private ResourceManager resourceManager;
 
         public ViewLabelProvider() {
         	
         }
-        
-        /*public ViewLabelProvider(ImageDescriptor directoryImage) {
-            this.directoryImage = directoryImage;
-        }*/
 
         @Override
         public StyledString getStyledText(Object element) {
