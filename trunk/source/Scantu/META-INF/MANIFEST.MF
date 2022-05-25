@@ -13,4 +13,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: tw.ntu.svvrl.ultimate.scantu
 Export-Package: tw.ntu.svvrl.ultimate.scantu,
  tw.ntu.svvrl.ultimate.scantu.actions,
+ tw.ntu.svvrl.ultimate.scantu.actions.toolchain_actions,
  tw.ntu.svvrl.ultimate.scantu.views

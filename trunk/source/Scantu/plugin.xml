@@ -6,7 +6,7 @@
       <impl
             class="tw.ntu.svvrl.ultimate.scantu.ScantuController"
             isGraphical="true"
-            preference="100">
+            preference="80">
       </impl>
    </extension>
 
@@ -14,7 +14,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="tw.ntu.svvrl.ultimate.scantu.Perspective"
-            name="Perspective"
+            name="Scantu Perspective"
             id="tw.ntu.svvrl.ultimate.scantu.perspective">
       </perspective>
    </extension>

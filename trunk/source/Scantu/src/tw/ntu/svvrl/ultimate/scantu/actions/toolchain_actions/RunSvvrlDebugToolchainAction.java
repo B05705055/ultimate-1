@@ -19,7 +19,7 @@ import tw.ntu.svvrl.ultimate.scantu.actions.ScantuToolchainJob;
 public class RunSvvrlDebugToolchainAction extends RunToolchainAction {
 	
 	private static final String LABEL = "Run SvvrlDebug";
-	private static final String TOOLCHAIN_PATH = "C:\\Users\\user\\Documents\\GitHub\\ultimate-1\\trunk\\source\\Scantu\\toolchains\\CInline2BoogiePrinter.xml";
+	private static final String TOOLCHAIN_PATH = "C:\\Users\\user\\Documents\\GitHub\\ultimate-1\\trunk\\source\\Scantu\\toolchains\\SvvrlDebug.xml";
 
 	public RunSvvrlDebugToolchainAction(ICore<RunDefinition> icore, ILogger logger, ScantuController controller,
 			IWorkbenchWindow window) {
