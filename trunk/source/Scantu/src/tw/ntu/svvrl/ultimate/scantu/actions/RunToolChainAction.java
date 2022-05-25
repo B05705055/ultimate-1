@@ -6,7 +6,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
-import de.uni_freiburg.informatik.ultimate.core.coreplugin.toolchain.BasicToolchainJob;
 import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
@@ -33,17 +32,6 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 	
 	protected File[] getInputFile() {
 		return FolderView.getInputFile();
-	}
-	
-	@Override
-	public final void run() {
-		final File[] fp = getInputFile();
-		if(fp == null) {
-			System.out.println("You have not chosen the C file to analyze!");
-			return;
-		}
-		final BasicToolchainJob tcj = new ScantuToolchainJob("Toolchain Name:", mCore, mController, mLogger, fp);
-		tcj.schedule();
 	}
 	
 	@Override

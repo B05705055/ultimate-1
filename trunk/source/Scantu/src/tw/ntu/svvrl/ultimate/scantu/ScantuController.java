@@ -1,12 +1,16 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBException;
+
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.xml.sax.SAXException;
 
 import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.IController;
@@ -30,7 +34,7 @@ public class ScantuController implements IController<RunDefinition> {
 	private ICore<RunDefinition> mCore;
 	private ILoggingService mLoggingService;
 	
-	private volatile IToolchainData<RunDefinition> mTools;
+	private IToolchainData<RunDefinition> mToolchain;
 
 	@Override
 	public String getPluginName() {
@@ -78,8 +82,7 @@ public class ScantuController implements IController<RunDefinition> {
 
 	@Override
 	public IToolchainData<RunDefinition> selectTools(List<ITool> tools) {
-		// TODO Auto-generated method stub
-		return null;
+		return mToolchain;
 	}
 
 	@Override
@@ -90,8 +93,7 @@ public class ScantuController implements IController<RunDefinition> {
 
 	@Override
 	public IToolchainData<RunDefinition> prerun(IToolchainData<RunDefinition> tcData) {
-		// TODO Auto-generated method stub
-		return null;
+		return tcData;
 	}
 
 	@Override
@@ -104,6 +106,12 @@ public class ScantuController implements IController<RunDefinition> {
 	public void displayException(IToolchainData<RunDefinition> toolchain, String description, Throwable ex) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setToolchain(String toolchainPath) throws FileNotFoundException, JAXBException, SAXException {
+		final IToolchainData<RunDefinition> newToolchain;
+		newToolchain = mCore.createToolchainData(toolchainPath);
+		mToolchain = newToolchain;
 	}
 	
 }
