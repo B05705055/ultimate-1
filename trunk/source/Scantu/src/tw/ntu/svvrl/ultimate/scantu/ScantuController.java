@@ -34,7 +34,8 @@ public class ScantuController implements IController<RunDefinition> {
 	private ICore<RunDefinition> mCore;
 	private ILoggingService mLoggingService;
 	
-	private IToolchainData<RunDefinition> mToolchain;
+	private IToolchainData<RunDefinition> mTools;
+	//private IToolchain<RunDefinition> mCurrentToolchain;
 
 	@Override
 	public String getPluginName() {
@@ -70,6 +71,7 @@ public class ScantuController implements IController<RunDefinition> {
 			}
 			return IApplication.EXIT_OK;
 		} finally {
+			//setAndReleaseToolchain(null);
 			mDisplay.dispose();
 		}
 	}
@@ -82,7 +84,7 @@ public class ScantuController implements IController<RunDefinition> {
 
 	@Override
 	public IToolchainData<RunDefinition> selectTools(List<ITool> tools) {
-		return mToolchain;
+		return mTools;
 	}
 
 	@Override
@@ -108,10 +110,23 @@ public class ScantuController implements IController<RunDefinition> {
 		
 	}
 	
-	public void setToolchain(String toolchainPath) throws FileNotFoundException, JAXBException, SAXException {
+	public void setTools(String toolchainPath) throws FileNotFoundException, JAXBException, SAXException {
 		final IToolchainData<RunDefinition> newToolchain;
 		newToolchain = mCore.createToolchainData(toolchainPath);
-		mToolchain = newToolchain;
+		mTools = newToolchain;
 	}
+	
+	/*
+	public void setAndReleaseToolchain(final IToolchain<RunDefinition> toolchain) {
+		if (mCurrentToolchain != null && !mCurrentToolchain.equals(toolchain)) {
+			mCore.releaseToolchain(mCurrentToolchain);
+		}
+		setCurrentToolchain(toolchain);
+	}
+	
+	public void setCurrentToolchain(final IToolchain<RunDefinition> toolchain) {
+		mCurrentToolchain = toolchain;
+	}
+	*/
 	
 }

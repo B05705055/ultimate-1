@@ -11,7 +11,7 @@ import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import tw.ntu.svvrl.ultimate.scantu.actions.LoadFolderAction;
-import tw.ntu.svvrl.ultimate.scantu.actions.toolchain_actions.RunSvvrlDebugToolchainAction;
+import tw.ntu.svvrl.ultimate.scantu.actions.toolchain_actions.*;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of
@@ -32,6 +32,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction mLoadFolderAction;
 	
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
+	
+	private IWorkbenchAction mRunCInline2BoogiePrinterToolchainAction;
 
 	public ApplicationActionBarAdvisor(final IActionBarConfigurer configurer, final ICore<RunDefinition> icc,
 			final ScantuController controller, final ILogger logger) {
@@ -44,7 +46,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(IWorkbenchWindow window) {
 		
 		mLoadFolderAction = registerAction(new LoadFolderAction(window));
-		mRunSvvrlDebugToolchainAction = registerAction(new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
+		
+		mRunSvvrlDebugToolchainAction = registerAction(
+				new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
+		
+		mRunCInline2BoogiePrinterToolchainAction = registerAction(
+				new RunCInline2BoogiePrinterToolchainAction(mCore, mLogger, mController, window));
     }
 	
 	private IWorkbenchAction registerAction(final IWorkbenchAction action) {
@@ -54,11 +61,17 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     protected void fillMenuBar(IMenuManager menuBar) {
     	final MenuManager fileMenu = new MenuManager("&File", "file");
-    	
     	fileMenu.add(mLoadFolderAction);
-    	fileMenu.add(mRunSvvrlDebugToolchainAction);
+    	
+    	final MenuManager modelCheckerMenu = new MenuManager("&Model Checker", "model checker");
+    	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);
+    	
+    	final MenuManager toolMenu = new MenuManager("&Tool", "tool");
+    	toolMenu.add(mRunCInline2BoogiePrinterToolchainAction);
     	
     	menuBar.add(fileMenu);
+    	menuBar.add(modelCheckerMenu);
+    	menuBar.add(toolMenu);
     }
 
 }

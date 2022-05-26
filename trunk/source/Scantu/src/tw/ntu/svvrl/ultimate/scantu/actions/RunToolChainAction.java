@@ -22,7 +22,7 @@ import tw.ntu.svvrl.ultimate.scantu.views.FolderView;
 
 public abstract class RunToolchainAction extends Action implements IWorkbenchAction {
 	
-	private static String mToolchainPath;
+	protected String mToolchainPath;
 	
 	protected final ICore<RunDefinition> mCore;
 	protected final ILogger mLogger;
@@ -49,17 +49,19 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 	protected File[] getInputFile() {
 		return FolderView.getInputFile();
 	}
-	
+
 	@Override
 	public final void run() {		
 		final File[] fp = getInputFile();
 		if(fp == null) {
-			System.out.println("You have not chosen the C file to analyze!");
+			System.out.println("You have not selected a C file to analyze!");
 			return;
 		}
 		
+		System.out.println("\nThe current toolchain is: " + mToolchainPath + "\n");
+		
 		try {
-			mController.setToolchain(mToolchainPath);
+			mController.setTools(mToolchainPath);
 		} catch (FileNotFoundException | JAXBException | SAXException e) {
 			e.printStackTrace();
 		}
