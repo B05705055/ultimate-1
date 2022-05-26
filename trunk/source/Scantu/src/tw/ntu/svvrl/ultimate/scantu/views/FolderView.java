@@ -82,6 +82,7 @@ public class FolderView extends ViewPart {
                 	files.add((File) item.getData());
                 	setInputFile(((File[]) files.toArray(new File[files.size()])));
                 	System.out.println(getInputFile()[0]);
+                	ProgramView.setInputFile(getInputFile());
                 }
             }
         });

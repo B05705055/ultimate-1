@@ -27,15 +27,21 @@
             restorable="true">
       </view>
       <view
-            class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
-            id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
-            name="System Log"
-            restorable="true">
-      </view>
-      <view
             class="tw.ntu.svvrl.ultimate.scantu.views.OperationView"
             id="tw.ntu.svvrl.ultimate.scantu.views.OperationView"
             name="Operation"
+            restorable="true">
+      </view>
+      <view
+            class="tw.ntu.svvrl.ultimate.scantu.views.ProgramView"
+            id="tw.ntu.svvrl.ultimate.scantu.views.ProgramView"
+            name="Program"
+            restorable="true">
+      </view>
+      <view
+            class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
+            id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
+            name="System Log"
             restorable="true">
       </view>
    </extension>

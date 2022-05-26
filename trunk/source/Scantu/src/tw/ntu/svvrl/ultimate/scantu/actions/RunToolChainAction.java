@@ -47,14 +47,10 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 				+ "\\source\\Scantu\\toolchains\\" + toolchainName + ".xml";
 		mToolchainPath = toolchainPath;
 	}
-	
-	protected File[] getInputFile() {
-		return FolderView.getInputFile();
-	}
 
 	@Override
 	public final void run() {		
-		final File[] fp = getInputFile();
+		final File[] fp = FolderView.getInputFile();
 		if(fp == null) {
 			mLogger.fatal("You have not selected a C file to analyze!");
 			return;
