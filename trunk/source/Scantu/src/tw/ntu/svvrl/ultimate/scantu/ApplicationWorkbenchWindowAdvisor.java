@@ -1,6 +1,8 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -9,6 +11,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
+import de.uni_freiburg.informatik.ultimate.gui.views.LoggingView;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	
@@ -40,5 +43,17 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowPerspectiveBar(true);
 		configurer.setShowProgressIndicator(true);
 		configurer.setTitle("Scantu - Source Code Analyzer NTU");
+	}
+	
+	@Override
+	public void postWindowCreate() {
+		super.postWindowCreate();
+		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
+		final IViewPart view = window.getActivePage().findView(LoggingView.ID);
+		if (view instanceof LoggingView) {
+			final LoggingView lv = (LoggingView) view;
+			lv.initializeLogging(mController.getLoggingService());
+			mLogger.info("This is the syslog referenced from \"de.uni_freiburg.informatik.ultimate.gui.views.LoggingView\"");
+		}
 	}
 }

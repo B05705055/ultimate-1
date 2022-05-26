@@ -129,4 +129,8 @@ public class ScantuController implements IController<RunDefinition> {
 	}
 	*/
 	
+	public ILoggingService getLoggingService() {
+		return mLoggingService;
+	}
+	
 }

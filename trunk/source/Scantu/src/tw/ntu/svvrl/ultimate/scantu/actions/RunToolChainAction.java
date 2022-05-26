@@ -22,6 +22,7 @@ import tw.ntu.svvrl.ultimate.scantu.views.FolderView;
 
 public abstract class RunToolchainAction extends Action implements IWorkbenchAction {
 	
+	protected String mToolchainName;
 	protected String mToolchainPath;
 	
 	protected final ICore<RunDefinition> mCore;
@@ -40,6 +41,7 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 		mController = controller;
 		mWorkbenchWindow = window;
 		
+		mToolchainName = toolchainName;
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		String toolchainPath= workspace.getRoot().getLocation().toFile().getParent().toString()
 				+ "\\source\\Scantu\\toolchains\\" + toolchainName + ".xml";
@@ -54,11 +56,11 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 	public final void run() {		
 		final File[] fp = getInputFile();
 		if(fp == null) {
-			System.out.println("You have not selected a C file to analyze!");
+			mLogger.fatal("You have not selected a C file to analyze!");
 			return;
 		}
 		
-		System.out.println("\nThe current toolchain is: " + mToolchainPath + "\n");
+		mLogger.info("-------------The current toolchain is: " + mToolchainName + "-------------");
 		
 		try {
 			mController.setTools(mToolchainPath);

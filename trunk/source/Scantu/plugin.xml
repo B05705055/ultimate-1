@@ -29,7 +29,7 @@
       <view
             class="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
             id="de.uni_freiburg.informatik.ultimate.gui.views.LoggingView"
-            name="Logging"
+            name="System Log"
             restorable="true">
       </view>
       <view
