@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ListViewer;
@@ -14,6 +13,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
+
+import tw.ntu.svvrl.ultimate.scantu.lib.CACSLCodeBeautifier;
 
 public class ProgramView extends ViewPart {
 	
@@ -38,7 +39,9 @@ public class ProgramView extends ViewPart {
 			public Object[] getElements(Object inputElement) {
 				ArrayList<String> fileContent = new ArrayList<String>();
 				fileContent = readInputFile(((File[]) inputElement)[0]);
-				return fileContent.toArray();
+				ArrayList<String> prettyFileContent = CACSLCodeBeautifier.codeBeautify(fileContent);
+				return prettyFileContent.toArray();
+				// return fileContent.toArray();
 			}
 			
 		});
