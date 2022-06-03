@@ -1,6 +1,9 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -55,5 +58,20 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 			lv.initializeLogging(mController.getLoggingService());
 			mLogger.info("This is the syslog referenced from \"de.uni_freiburg.informatik.ultimate.gui.views.LoggingView\"");
 		}
+	}
+	
+	@Override
+	public boolean preWindowShellClose() {
+		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
+		final Shell shell = window.getShell();
+		MessageBox dialog =
+			    new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
+		dialog.setText("My info");
+		dialog.setMessage("Do you really want to do this?");
+		int returnCode = dialog.open();
+		if (returnCode == SWT.OK) {
+			return true;
+		}
+		return false;
 	}
 }

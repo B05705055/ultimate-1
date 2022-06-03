@@ -10,7 +10,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
-import tw.ntu.svvrl.ultimate.scantu.actions.LoadFolderAction;
+import tw.ntu.svvrl.ultimate.scantu.actions.*;
 import tw.ntu.svvrl.ultimate.scantu.actions.toolchain_actions.*;
 
 /**
@@ -30,6 +30,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private final ILogger mLogger;
 	
 	private IWorkbenchAction mLoadFolderAction;
+	private IWorkbenchAction mCodeBeautifyAction;
 	
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
 	
@@ -46,6 +47,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(IWorkbenchWindow window) {
 		
 		mLoadFolderAction = registerAction(new LoadFolderAction(window));
+		mCodeBeautifyAction = registerAction(new CodeBeautifyAction(window));
 		
 		mRunSvvrlDebugToolchainAction = registerAction(
 				new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
@@ -62,6 +64,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     protected void fillMenuBar(IMenuManager menuBar) {
     	final MenuManager fileMenu = new MenuManager("&File", "file");
     	fileMenu.add(mLoadFolderAction);
+    	fileMenu.add(mCodeBeautifyAction);
     	
     	final MenuManager modelCheckerMenu = new MenuManager("&Model Checker", "model checker");
     	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);

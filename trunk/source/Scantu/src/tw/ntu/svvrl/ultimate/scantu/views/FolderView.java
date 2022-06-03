@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -34,7 +36,10 @@ import org.apache.commons.io.FilenameUtils;
 public class FolderView extends ViewPart {
 	
 	private static TreeViewer viewer;
-	private static String currentDir = "C:\\Users\\user\\Downloads";
+	//private static String currentDir = "C:\\Users\\user\\Downloads";
+	public static String cFileDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile().getParent().toString()
+			+ "\\source\\Scantu\\cFile";
+	private static String currentDir = cFileDir;
 	private static File[] inputFile;
 	
 	public static void setDir(String selectedDir) {
@@ -64,7 +69,7 @@ public class FolderView extends ViewPart {
         viewer.setContentProvider(new ViewContentProvider());
         viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
                 new ViewLabelProvider()));
-        File path = new File(currentDir);
+        File path = new File(cFileDir);
         viewer.setInput(path.listFiles());
         //viewer.setInput(File.listRoots());
         
@@ -81,7 +86,7 @@ public class FolderView extends ViewPart {
                 	final List<File> files = new ArrayList<>();
                 	files.add((File) item.getData());
                 	setInputFile(((File[]) files.toArray(new File[files.size()])));
-                	System.out.println(getInputFile()[0]);
+                	//System.out.println(getInputFile()[0]);
                 	ProgramView.setInputFile(getInputFile());
                 }
             }

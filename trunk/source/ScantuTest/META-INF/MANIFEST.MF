@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ScantuTest
+Bundle-SymbolicName: ScantuTest
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ScantuTest0
+Automatic-Module-Name: ScantuTest
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: org.eclipse.swt;bundle-version="3.115.0",
+ org.eclipse.jface;bundle-version="3.21.0"
