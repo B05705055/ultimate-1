@@ -62,7 +62,11 @@ public class DialogSWT extends Dialog {
 		
 		Text title2 = new Text(shell, SWT.READ_ONLY);
 		title2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
-		title2.setText("Parsing Annotation");
+		title2.setText("Statement Annotation");
+		
+		Button assertion = new Button(shell, SWT.NONE);
+		assertion.setLayoutData(new GridData(80, SWT.DEFAULT));
+		assertion.setText("assert");
 		
 		/*new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
