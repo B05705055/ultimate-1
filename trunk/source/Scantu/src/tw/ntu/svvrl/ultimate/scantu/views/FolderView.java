@@ -3,9 +3,6 @@ package tw.ntu.svvrl.ultimate.scantu.views;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -15,18 +12,17 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -73,7 +69,7 @@ public class FolderView extends ViewPart {
         viewer.setInput(path.listFiles());
         //viewer.setInput(File.listRoots());
         
-        Tree tree = (Tree) viewer.getControl();
+        /*Tree tree = (Tree) viewer.getControl();
         tree.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -90,6 +86,23 @@ public class FolderView extends ViewPart {
                 	ProgramView.setInputFile(getInputFile());
                 }
             }
+        });*/
+        
+        viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				TreeViewer viewer = (TreeViewer) event.getViewer();
+		        IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection();
+		        File selectedNode = (File) thisSelection.getFirstElement();
+		        if (selectedNode.isDirectory() == true) {
+		        	 viewer.setExpandedState(selectedNode, !viewer.getExpandedState(selectedNode));
+		        }
+		        else {
+		        	File[] files = {selectedNode};
+		        	setInputFile(files);
+		        	ProgramView.setInputFile(getInputFile());
+		        }
+			}
         });
 	}
 	

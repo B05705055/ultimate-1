@@ -17,7 +17,8 @@
 int main() {
     int aaa[2];
     aaa[0] = 5;aaa[1] = 3;
-    int x = aaa[0];    
+    int x = aaa[0];
+    int aaa[2];
 	
 	for (int i = 0; i < 10; i++){
 		fadsgaeg;

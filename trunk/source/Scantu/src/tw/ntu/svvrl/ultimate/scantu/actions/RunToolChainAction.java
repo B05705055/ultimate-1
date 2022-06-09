@@ -64,7 +64,7 @@ public abstract class RunToolchainAction extends Action implements IWorkbenchAct
 			e.printStackTrace();
 		}
 		
-		final BasicToolchainJob tcj = new ScantuToolchainJob("Toolchain Name:", mCore, mController, mLogger, fp);
+		final BasicToolchainJob tcj = new ScantuToolchainJob("Processing Toolchain", mCore, mController, mLogger, fp);
 		tcj.schedule();
 	}
 	

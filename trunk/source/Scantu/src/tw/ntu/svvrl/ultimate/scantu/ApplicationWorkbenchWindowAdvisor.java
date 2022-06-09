@@ -45,7 +45,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowStatusLine(true);
 		configurer.setShowPerspectiveBar(true);
 		configurer.setShowProgressIndicator(true);
-		configurer.setTitle("Scantu - Source Code Analyzer NTU");
+		configurer.setTitle("SCANTU - Source Code Analyzer from NTU");
 	}
 	
 	@Override

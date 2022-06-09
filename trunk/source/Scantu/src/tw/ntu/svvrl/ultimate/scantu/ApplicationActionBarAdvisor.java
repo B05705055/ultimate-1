@@ -1,7 +1,12 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -30,7 +35,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private final ILogger mLogger;
 	
 	private IWorkbenchAction mLoadFolderAction;
+	
 	private IWorkbenchAction mCodeBeautifyAction;
+	private IWorkbenchAction mAddAnnotationAction;
 	
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
 	
@@ -47,7 +54,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(IWorkbenchWindow window) {
 		
 		mLoadFolderAction = registerAction(new LoadFolderAction(window));
+		
 		mCodeBeautifyAction = registerAction(new CodeBeautifyAction(window));
+		mAddAnnotationAction = registerAction(new AddAnnotationAction(window));
 		
 		mRunSvvrlDebugToolchainAction = registerAction(
 				new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
@@ -61,10 +70,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		return action;
 	}
 
+	@Override
     protected void fillMenuBar(IMenuManager menuBar) {
     	final MenuManager fileMenu = new MenuManager("&File", "file");
     	fileMenu.add(mLoadFolderAction);
-    	fileMenu.add(mCodeBeautifyAction);
+    	
+    	final MenuManager editMenu = new MenuManager("&Edit", "edit");
+    	editMenu.add(mCodeBeautifyAction);
+    	editMenu.add(mAddAnnotationAction);
     	
     	final MenuManager modelCheckerMenu = new MenuManager("&Model Checker", "model checker");
     	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);
@@ -73,8 +86,18 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     	toolMenu.add(mRunCInline2BoogiePrinterToolchainAction);
     	
     	menuBar.add(fileMenu);
+    	menuBar.add(editMenu);
     	menuBar.add(modelCheckerMenu);
     	menuBar.add(toolMenu);
     }
+	
+	@Override
+	protected void fillCoolBar(final ICoolBarManager coolBar) {
+		final IToolBarManager toolBar = new ToolBarManager(SWT.PUSH);
+		toolBar.add(mLoadFolderAction);
+		toolBar.add(new Separator());
+		
+		coolBar.add(toolBar);
+	}
 
 }

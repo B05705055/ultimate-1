@@ -1,24 +1,22 @@
 package tw.ntu.svvrl.ultimate.scantu.actions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import org.eclipse.jface.action.Action;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import tw.ntu.svvrl.ultimate.scantu.ScantuController;
 import tw.ntu.svvrl.ultimate.scantu.lib.CACSLCodeBeautifier;
 import tw.ntu.svvrl.ultimate.scantu.views.FolderView;
 import tw.ntu.svvrl.ultimate.scantu.views.ProgramView;
 
 public class CodeBeautifyAction extends Action implements IWorkbenchAction {
+	
+	//private final String IMAGE_PATH = "icons/folder.png";
 	
 	protected final IWorkbenchWindow mWorkbenchWindow;
 	public String selectedDir;
@@ -27,6 +25,7 @@ public class CodeBeautifyAction extends Action implements IWorkbenchAction {
 	public CodeBeautifyAction(final IWorkbenchWindow window) {
 		setId(getClass().getName());
 		setText("Code Beautify");
+		//setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH));
 		mWorkbenchWindow = window;
 	}
 	
@@ -38,13 +37,17 @@ public class CodeBeautifyAction extends Action implements IWorkbenchAction {
 		ArrayList<String> prettyFileContent = CACSLCodeBeautifier.codeBeautify(fileContent);
 		
 		try {
-			FileWriter myWriter = new FileWriter(FolderView.cFileDir + "\\beautifiedCode.c");
+			FileWriter myWriter = new FileWriter(FolderView.cFileDir + "\\tempFile.c");
 			for (String str : prettyFileContent) {
 				myWriter.write(str + System.lineSeparator());
 			}
 			myWriter.close();
-			File[] prettyFile = {new File(FolderView.cFileDir + "\\beautifiedCode.c")};
+			File[] prettyFile = {new File(FolderView.cFileDir + "\\tempFile.c")};
+			
+			String originalFileName = ProgramView.getFileName();
 			ProgramView.setInputFile(prettyFile);
+			ProgramView.setFileName(originalFileName);
+			
 			FolderView.setDir(FolderView.getDir());
 			FolderView.refreshDir();
 		} catch (IOException e) {

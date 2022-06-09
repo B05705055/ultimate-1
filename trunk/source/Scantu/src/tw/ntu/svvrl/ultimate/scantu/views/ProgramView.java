@@ -7,13 +7,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
@@ -28,8 +37,7 @@ public class ProgramView extends ViewPart {
 	
 	public static void setInputFile(File[] file) {
 		if (file != null) {
-			fileName = file[0].getName();
-			text.setText(fileName);
+			setFileName(file[0].getName());
 		}
 		inputFile = file;
 		viewer.setInput(inputFile);
@@ -37,6 +45,15 @@ public class ProgramView extends ViewPart {
 	
 	public static File[] getInputFile() {
 		return inputFile;
+	}
+	
+	public static String getFileName() {
+		return fileName;
+	}
+	
+	public static void setFileName(String newFileName) {
+		fileName = newFileName;
+		text.setText(fileName);
 	}
 
 	@Override
@@ -62,6 +79,25 @@ public class ProgramView extends ViewPart {
 				return fileContent.toArray();
 			}
 			
+		});
+		
+		/*List list = (List) viewer.getControl();
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				String selectedString = (String) selection.getFirstElement();
+				System.out.println(list.indexOf(selectedString));
+			}
+		});*/
+		
+		
+		List list = (List) viewer.getControl();
+		list.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				//System.out.println(list.getSelectionIndex());
+			}
 		});
 		
 		viewer.setInput(inputFile);
