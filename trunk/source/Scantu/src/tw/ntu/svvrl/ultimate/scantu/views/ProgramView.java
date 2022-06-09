@@ -61,10 +61,10 @@ public class ProgramView extends ViewPart {
 		
 		parent.setLayout(new GridLayout(1, false));
 		
-		text = new Text(parent, SWT.MULTI);
+		text = new Text(parent, SWT.MULTI | SWT.READ_ONLY);
 		text.setText(fileName);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		new Label(parent, SWT.NONE);
+		//new Label(parent, SWT.NONE);
 		
 		viewer = new ListViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
