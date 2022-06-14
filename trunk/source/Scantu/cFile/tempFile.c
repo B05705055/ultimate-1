@@ -1,14 +1,9 @@
 //#Unsafe
 #include <stdlib.h>
-int plus (int inputN){
-        int temp = 0;
-        for (int a = 0; a < inputN; a++){
-                temp = temp + a;
-        }
-        return temp;
-}
 int main() {
-        int aaa = 5;
-        int bbb = plus(aaa);
+        int aaa[2];
+        aaa[0] = 5;
+        aaa[1] = 3;
+        int x = aaa[0];
         return 0;
 }
