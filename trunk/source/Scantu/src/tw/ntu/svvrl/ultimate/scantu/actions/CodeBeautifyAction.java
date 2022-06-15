@@ -16,7 +16,7 @@ import tw.ntu.svvrl.ultimate.scantu.views.ProgramView;
 
 public class CodeBeautifyAction extends Action implements IWorkbenchAction {
 	
-	//private final String IMAGE_PATH = "icons/folder.png";
+	private final String IMAGE_PATH = "icons/CodeBeautify.png";
 	
 	protected final IWorkbenchWindow mWorkbenchWindow;
 	public String selectedDir;
@@ -25,7 +25,7 @@ public class CodeBeautifyAction extends Action implements IWorkbenchAction {
 	public CodeBeautifyAction(final IWorkbenchWindow window) {
 		setId(getClass().getName());
 		setText("Code Beautify");
-		//setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH));
+		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH));
 		mWorkbenchWindow = window;
 	}
 	

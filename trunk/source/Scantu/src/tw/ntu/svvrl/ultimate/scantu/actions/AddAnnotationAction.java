@@ -15,7 +15,8 @@ import tw.ntu.svvrl.ultimate.scantu.views.ProgramView;
 
 public class AddAnnotationAction extends Action implements IWorkbenchAction {
 	
-private final String IMAGE_PATH = "icons/LoadFolder.png";
+	private final String IMAGE_PATH_ABOVE = "icons/InsertAbove.png";
+	private final String IMAGE_PATH_BELOW = "icons/InsertBelow.png";
 	
 	protected final IWorkbenchWindow mWorkbenchWindow;
 	protected final boolean above;
@@ -24,11 +25,12 @@ private final String IMAGE_PATH = "icons/LoadFolder.png";
 		setId(getClass().getName());
 		if (whetherAbove) {
 			setText("Add Annotation Above");
+			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH_ABOVE));
 		}
 		else {
 			setText("Add Annotation Below");
+			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH_BELOW));
 		}
-		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(ScantuController.PLUGIN_ID, IMAGE_PATH));
 		mWorkbenchWindow = window;
 		above = whetherAbove;
 	}

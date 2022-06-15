@@ -35,6 +35,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private final ILogger mLogger;
 	
 	private IWorkbenchAction mLoadFolderAction;
+	private IWorkbenchAction mSaveFileAction;
 	
 	private IWorkbenchAction mCodeBeautifyAction;
 	private IWorkbenchAction mAddAnnotationAboveAction;
@@ -55,6 +56,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void makeActions(IWorkbenchWindow window) {
 		
 		mLoadFolderAction = registerAction(new LoadFolderAction(window));
+		mSaveFileAction = registerAction(new SaveFileAction(window));
 		
 		mCodeBeautifyAction = registerAction(new CodeBeautifyAction(window));
 		mAddAnnotationAboveAction = registerAction(new AddAnnotationAction(window, true));
@@ -76,6 +78,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     protected void fillMenuBar(IMenuManager menuBar) {
     	final MenuManager fileMenu = new MenuManager("&File", "file");
     	fileMenu.add(mLoadFolderAction);
+    	fileMenu.add(mSaveFileAction);
     	
     	final MenuManager editMenu = new MenuManager("&Edit", "edit");
     	editMenu.add(mCodeBeautifyAction);
@@ -98,7 +101,11 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	protected void fillCoolBar(final ICoolBarManager coolBar) {
 		final IToolBarManager toolBar = new ToolBarManager(SWT.PUSH);
 		toolBar.add(mLoadFolderAction);
+		toolBar.add(mSaveFileAction);
 		toolBar.add(new Separator());
+		toolBar.add(mCodeBeautifyAction);
+		toolBar.add(mAddAnnotationAboveAction);
+		toolBar.add(mAddAnnotationBelowAction);
 		
 		coolBar.add(toolBar);
 	}

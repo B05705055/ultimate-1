@@ -15,6 +15,8 @@ import de.uni_freiburg.informatik.ultimate.core.lib.toolchain.RunDefinition;
 import de.uni_freiburg.informatik.ultimate.core.model.ICore;
 import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.gui.views.LoggingView;
+import tw.ntu.svvrl.ultimate.scantu.lib.SaveFile;
+import tw.ntu.svvrl.ultimate.scantu.views.ProgramView;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	
@@ -62,16 +64,18 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	
 	@Override
 	public boolean preWindowShellClose() {
-		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
-		final Shell shell = window.getShell();
-		MessageBox dialog =
-			    new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
-		dialog.setText("My info");
-		dialog.setMessage("Do you really want to do this?");
-		int returnCode = dialog.open();
-		if (returnCode == SWT.OK) {
-			return true;
+		if (!ProgramView.whetherSaved()) {
+			final IWorkbenchWindow window = getWindowConfigurer().getWindow();
+			final Shell shell = window.getShell();
+			MessageBox dialog =
+				    new MessageBox(shell, SWT.ICON_WARNING | SWT.YES| SWT.NO);
+			dialog.setText("Warning");
+			dialog.setMessage("Your edited file is unsaved, do you want to save it?");
+			int returnCode = dialog.open();
+			if (returnCode == SWT.YES) {
+				SaveFile.save(window);
+			}
 		}
-		return false;
+		return true;
 	}
 }

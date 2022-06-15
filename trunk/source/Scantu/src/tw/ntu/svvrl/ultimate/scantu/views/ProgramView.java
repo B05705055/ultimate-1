@@ -27,6 +27,7 @@ public class ProgramView extends ViewPart {
 	private static File[] inputFile = null;
 	private static String fileName = "No file selected.";
 	private static int selectedStringIdx = -1;
+	private static boolean SAVED = true;
 	
 	public static void setInputFile(File[] file) {
 		if (file != null) {
@@ -36,7 +37,6 @@ public class ProgramView extends ViewPart {
 		inputFile = file;
 		viewer.setInput(inputFile);
 	}
-	
 	public static File[] getInputFile() {
 		return inputFile;
 	}
@@ -44,7 +44,6 @@ public class ProgramView extends ViewPart {
 	public static String getFileName() {
 		return fileName;
 	}
-	
 	public static void setFileName(String newFileName) {
 		fileName = newFileName;
 		text.setText(fileName);
@@ -52,6 +51,13 @@ public class ProgramView extends ViewPart {
 	
 	public static int getSelectedStringIdx() {
 		return selectedStringIdx;
+	}
+	
+	public static boolean whetherSaved() {
+		return SAVED;
+	}
+	public static void changeSaveState(boolean newSaveState) {
+		SAVED = newSaveState;
 	}
 
 	@Override
@@ -123,7 +129,7 @@ public class ProgramView extends ViewPart {
 	
 	public static void addAnnotation(String annotation, String type, boolean above) {
 		ArrayList<String> fileContent = new ArrayList<String>();
-		fileContent = ProgramView.readInputFile(inputFile[0]);
+		fileContent = readInputFile(inputFile[0]);
 		
 		String[] annotationArray = annotation.split("\n");
 		for (int i = 0; i < annotationArray.length; i++) {
@@ -155,7 +161,6 @@ public class ProgramView extends ViewPart {
 		}
 		selectedStringIdx = -1;
 		
-		//System.out.println(fileContent);
 		try {
 			FileWriter myWriter = new FileWriter(FolderView.cFileDir + "\\tempFile.c");
 			for (String str : fileContent) {
@@ -164,9 +169,10 @@ public class ProgramView extends ViewPart {
 			myWriter.close();
 			File[] newFile = {new File(FolderView.cFileDir + "\\tempFile.c")};
 			
-			String originalFileName = ProgramView.getFileName();
-			ProgramView.setInputFile(newFile);
-			ProgramView.setFileName(originalFileName);
+			String originalFileName = getFileName();
+			setInputFile(newFile);
+			setFileName("*" + originalFileName);
+			changeSaveState(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

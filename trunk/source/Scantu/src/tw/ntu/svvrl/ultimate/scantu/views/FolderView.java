@@ -23,9 +23,13 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import tw.ntu.svvrl.ultimate.scantu.lib.SaveFile;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -98,6 +102,17 @@ public class FolderView extends ViewPart {
 		        	 viewer.setExpandedState(selectedNode, !viewer.getExpandedState(selectedNode));
 		        }
 		        else {
+		        	if (!ProgramView.whetherSaved()) {
+		        		MessageBox dialog =
+		    				    new MessageBox(parent.getShell(), SWT.ICON_WARNING | SWT.YES| SWT.NO);
+		    			dialog.setText("Warning");
+		    			dialog.setMessage("Your edited file is unsaved, do you want to save it?");
+		    			int returnCode = dialog.open();
+		    			if (returnCode == SWT.YES) {
+		    				SaveFile.save(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+		    			}
+		    			ProgramView.changeSaveState(true);
+		        	}
 		        	File[] files = {selectedNode};
 		        	setInputFile(files);
 		        	ProgramView.setInputFile(getInputFile());
