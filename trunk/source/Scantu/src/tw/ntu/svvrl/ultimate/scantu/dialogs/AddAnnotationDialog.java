@@ -1,5 +1,7 @@
 package tw.ntu.svvrl.ultimate.scantu.dialogs;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -18,8 +20,9 @@ import org.eclipse.swt.widgets.Text;
 public class AddAnnotationDialog extends Dialog {
 	
 	protected Shell shell;
-	protected String result = "Finish Dig";
-	public Text editArea;
+	//protected String result;
+	protected ArrayList<String> result;
+	private Text editArea;
 	private Text annotationAreaEnd;
 
 	public AddAnnotationDialog(Shell parent) {
@@ -27,7 +30,7 @@ public class AddAnnotationDialog extends Dialog {
 		setText("Annotation Dialog");
 	}
 	
-	public String open() {
+	public ArrayList<String> open() {
 		createContents();
 		shell.open();
 		shell.layout();
@@ -128,10 +131,30 @@ public class AddAnnotationDialog extends Dialog {
 		Button btn_OK = new Button(operateComposite, SWT.NONE);
 		btn_OK.setLayoutData(new GridData(80, SWT.DEFAULT));
 		btn_OK.setText("OK");
+		btn_OK.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				result = new ArrayList<String>();
+				if (oneLineAnnotation.getSelection()) {
+					result.add("SINGLE");
+				}
+				else {
+					result.add("MULTI");
+				}
+				result.add(editArea.getText());
+				shell.close();
+			}
+		});
 		
 		Button btn_Cancel = new Button(operateComposite, SWT.NONE);
 		btn_Cancel.setLayoutData(new GridData(80, SWT.DEFAULT));
 		btn_Cancel.setText("Cancel");
+		btn_Cancel.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				shell.close();
+			}
+		});
 	}
 	
 	private SelectionAdapter createAdapter(String annotation) {
@@ -140,7 +163,7 @@ public class AddAnnotationDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				editArea.insert(annotation);
 				editArea.setFocus();
-				System.out.println(editArea.getText());
+				//System.out.println(editArea.getText());
 			}
 		};
 		return adapter;

@@ -4,29 +4,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
-
-import tw.ntu.svvrl.ultimate.scantu.lib.CACSLCodeBeautifier;
 
 public class ProgramView extends ViewPart {
 	
@@ -34,11 +26,13 @@ public class ProgramView extends ViewPart {
 	private static ListViewer viewer;
 	private static File[] inputFile = null;
 	private static String fileName = "No file selected.";
+	private static int selectedStringIdx = -1;
 	
 	public static void setInputFile(File[] file) {
 		if (file != null) {
 			setFileName(file[0].getName());
 		}
+		selectedStringIdx = -1;
 		inputFile = file;
 		viewer.setInput(inputFile);
 	}
@@ -54,6 +48,10 @@ public class ProgramView extends ViewPart {
 	public static void setFileName(String newFileName) {
 		fileName = newFileName;
 		text.setText(fileName);
+	}
+	
+	public static int getSelectedStringIdx() {
+		return selectedStringIdx;
 	}
 
 	@Override
@@ -96,7 +94,7 @@ public class ProgramView extends ViewPart {
 		list.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//System.out.println(list.getSelectionIndex());
+				selectedStringIdx = list.getSelectionIndex();
 			}
 		});
 		
@@ -121,6 +119,57 @@ public class ProgramView extends ViewPart {
 			e.printStackTrace();
 		}
 		return fileContent;
+	}
+	
+	public static void addAnnotation(String annotation, String type, boolean above) {
+		ArrayList<String> fileContent = new ArrayList<String>();
+		fileContent = ProgramView.readInputFile(inputFile[0]);
+		
+		String[] annotationArray = annotation.split("\n");
+		for (int i = 0; i < annotationArray.length; i++) {
+			if (!above) {
+				selectedStringIdx++;
+			}
+			String annotationLine = annotationArray[i].replaceAll("\r", "");
+			if (type.equals("MULTI")) {
+				if (i == 0) {
+					annotationLine = "/*@ " + annotationLine;
+				}
+				else {
+					annotationLine = " *@ " + annotationLine;
+				}
+			}
+			else {
+				annotationLine = "//@ " + annotationLine;
+			}
+			fileContent.add(selectedStringIdx, annotationLine);
+			if (above) {
+				selectedStringIdx++;
+			}
+		}
+		if (type.equals("MULTI")) {
+			if (!above) {
+				selectedStringIdx++;
+			}
+			fileContent.add(selectedStringIdx, " */");
+		}
+		selectedStringIdx = -1;
+		
+		//System.out.println(fileContent);
+		try {
+			FileWriter myWriter = new FileWriter(FolderView.cFileDir + "\\tempFile.c");
+			for (String str : fileContent) {
+				myWriter.write(str + System.lineSeparator());
+			}
+			myWriter.close();
+			File[] newFile = {new File(FolderView.cFileDir + "\\tempFile.c")};
+			
+			String originalFileName = ProgramView.getFileName();
+			ProgramView.setInputFile(newFile);
+			ProgramView.setFileName(originalFileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

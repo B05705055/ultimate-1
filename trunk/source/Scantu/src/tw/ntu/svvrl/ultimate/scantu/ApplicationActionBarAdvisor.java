@@ -37,7 +37,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction mLoadFolderAction;
 	
 	private IWorkbenchAction mCodeBeautifyAction;
-	private IWorkbenchAction mAddAnnotationAction;
+	private IWorkbenchAction mAddAnnotationAboveAction;
+	private IWorkbenchAction mAddAnnotationBelowAction;
 	
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
 	
@@ -56,7 +57,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		mLoadFolderAction = registerAction(new LoadFolderAction(window));
 		
 		mCodeBeautifyAction = registerAction(new CodeBeautifyAction(window));
-		mAddAnnotationAction = registerAction(new AddAnnotationAction(window));
+		mAddAnnotationAboveAction = registerAction(new AddAnnotationAction(window, true));
+		mAddAnnotationBelowAction = registerAction(new AddAnnotationAction(window, false));
 		
 		mRunSvvrlDebugToolchainAction = registerAction(
 				new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
@@ -77,7 +79,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     	
     	final MenuManager editMenu = new MenuManager("&Edit", "edit");
     	editMenu.add(mCodeBeautifyAction);
-    	editMenu.add(mAddAnnotationAction);
+    	editMenu.add(mAddAnnotationAboveAction);
+    	editMenu.add(mAddAnnotationBelowAction);
     	
     	final MenuManager modelCheckerMenu = new MenuManager("&Model Checker", "model checker");
     	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);
