@@ -25,11 +25,16 @@ public class DebugPluginObserver implements IUnmanagedObserver {
 	
 	public DebugPluginObserver(final IUltimateServiceProvider services) {
 		mServices = services;
-		mLogger = mServices.getLoggingService().getLogger(Activator.PLUGIN_ID);
+		mLogger = services.getLoggingService().getLogger(Activator.PLUGIN_ID);
+		
+		mModelCheckerAssistant = null;
+		mRcfg = null;
+		mNeverClaimNWAContainer = null;
 	}
 
 	@Override
 	public void init(ModelType modelType, int currentModelIndex, int numberOfModels) throws Throwable {
+		System.out.println("aaaaaa1");
 	}
 
 	@Override
@@ -37,9 +42,9 @@ public class DebugPluginObserver implements IUnmanagedObserver {
 		if (mNeverClaimNWAContainer == null || mRcfg == null) {
 			return;
 		}
-		
-		//reportSizeBenchmark("Initial property automaton", mNeverClaimNWAContainer.getValue());
-		//reportSizeBenchmark("Initial RCFG", mRcfg);
+		System.out.println("aaaaaa");
+		reportSizeBenchmark("Initial property automaton", mNeverClaimNWAContainer.getValue());
+		reportSizeBenchmark("Initial RCFG", mRcfg);
 
 		mLogger.info("Do something with these two models...");
 		mModelCheckerAssistant = new ModelCheckerAssistant(mNeverClaimNWAContainer.getValue(), mRcfg, mLogger, mServices);

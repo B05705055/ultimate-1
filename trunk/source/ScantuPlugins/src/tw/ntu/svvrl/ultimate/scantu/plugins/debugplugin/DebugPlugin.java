@@ -1,7 +1,10 @@
 package tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin.DebugPluginObserver;
 
 import de.uni_freiburg.informatik.ultimate.core.model.IGenerator;
 import de.uni_freiburg.informatik.ultimate.core.model.models.IElement;
@@ -14,10 +17,14 @@ public class DebugPlugin implements IGenerator {
 	
 	private IUltimateServiceProvider mServices;
 	private DebugPluginObserver mObserver;
+	
+	private boolean mUseDebugPluginObserver;
 
 	@Override
 	public ModelType getOutputDefinition() {
-		return null;
+		final List<String> filenames = new ArrayList<>();
+		filenames.add("Currently no model");
+		return new ModelType(Activator.PLUGIN_ID, ModelType.Type.OTHER, filenames);
 	}
 
 	@Override
@@ -37,13 +44,24 @@ public class DebugPlugin implements IGenerator {
 
 	@Override
 	public void setInputDefinition(ModelType graphType) {
-		// do nothing
+		switch (graphType.getCreator()) {
+		case "de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder":
+		case "de.uni_freiburg.informatik.ultimate.ltl2aut":
+			mUseDebugPluginObserver = true;
+			break;
+		default:
+			mUseDebugPluginObserver = false;
+			break;
+		}
 	}
 
 	@Override
 	public List<IObserver> getObservers() {
-		mObserver = new DebugPluginObserver(mServices);
-		return Collections.singletonList(mObserver);
+		if (mUseDebugPluginObserver) {
+			mObserver = new DebugPluginObserver(mServices);
+			return Collections.singletonList(mObserver);
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -53,7 +71,7 @@ public class DebugPlugin implements IGenerator {
 
 	@Override
 	public void init() {
-		// do nothing
+		mUseDebugPluginObserver = false;
 	}
 
 	@Override
