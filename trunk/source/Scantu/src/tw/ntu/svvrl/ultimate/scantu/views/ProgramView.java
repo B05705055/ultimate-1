@@ -171,7 +171,12 @@ public class ProgramView extends ViewPart {
 			
 			String originalFileName = getFileName();
 			setInputFile(newFile);
-			setFileName("*" + originalFileName);
+			if (whetherSaved()) {
+				setFileName("*" + originalFileName);
+			}
+			else {
+				setFileName(originalFileName);
+			}
 			changeSaveState(false);
 		} catch (IOException e) {
 			e.printStackTrace();

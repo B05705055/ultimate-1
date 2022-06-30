@@ -10,7 +10,7 @@ import tw.ntu.svvrl.ultimate.scantu.actions.RunToolchainAction;
 public class RunCInline2BoogiePrinterToolchainAction extends RunToolchainAction {
 	
 	private static final String LABEL = "Run CInline2BoogiePrinter";
-	private static final String TOOLCHAIN_NAME = "CInline2BoogiePrinter";
+	private static final String TOOLCHAIN_NAME = "ScantuTestDebug";
 
 	public RunCInline2BoogiePrinterToolchainAction(ICore<RunDefinition> icore, ILogger logger, ScantuController controller,
 			IWorkbenchWindow window) {

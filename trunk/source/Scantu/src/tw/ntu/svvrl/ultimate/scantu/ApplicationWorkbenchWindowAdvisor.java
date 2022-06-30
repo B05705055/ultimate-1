@@ -1,5 +1,7 @@
 package tw.ntu.svvrl.ultimate.scantu;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.MessageBox;
@@ -48,6 +50,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowPerspectiveBar(true);
 		configurer.setShowProgressIndicator(true);
 		configurer.setTitle("SCANTU - Source Code Analyzer from NTU");
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		String settingsFilePath= workspace.getRoot().getLocation().toFile().getParent().toString()
+				+ "\\source\\Scantu\\toolchains\\SvvrlDebug.epf";
+		mCore.loadPreferences(settingsFilePath, false);
 	}
 	
 	@Override

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ScantuPlugins
+Bundle-SymbolicName: tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: ScantuPlugins
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-ActivationPolicy: lazy
+Require-Bundle: de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder,
+ de.uni_freiburg.informatik.ultimate.ltl2aut,
+ tw.ntu.svvrl.ultimate.lib.modelcheckerassistant;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.automata;bundle-version="0.2.1"
+Bundle-Activator: tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin.Activator
