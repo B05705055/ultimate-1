@@ -34,15 +34,17 @@ public class DebugPluginObserver implements IUnmanagedObserver {
 
 	@Override
 	public void init(ModelType modelType, int currentModelIndex, int numberOfModels) throws Throwable {
-		System.out.println("aaaaaa1");
+		
 	}
 
 	@Override
 	public void finish() throws Throwable {
+		//System.out.println("aaaaaa" + mNeverClaimNWAContainer);
+		//System.out.println("bbbbbb" + mRcfg);
 		if (mNeverClaimNWAContainer == null || mRcfg == null) {
 			return;
 		}
-		System.out.println("aaaaaa");
+		
 		reportSizeBenchmark("Initial property automaton", mNeverClaimNWAContainer.getValue());
 		reportSizeBenchmark("Initial RCFG", mRcfg);
 

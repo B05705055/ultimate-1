@@ -58,7 +58,9 @@ public class DebugPlugin implements IGenerator {
 	@Override
 	public List<IObserver> getObservers() {
 		if (mUseDebugPluginObserver) {
-			mObserver = new DebugPluginObserver(mServices);
+			if (mObserver == null) {
+				mObserver = new DebugPluginObserver(mServices);
+			}
 			return Collections.singletonList(mObserver);
 		}
 		return Collections.emptyList();
