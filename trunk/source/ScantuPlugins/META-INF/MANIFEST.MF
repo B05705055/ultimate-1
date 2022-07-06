@@ -5,7 +5,6 @@ Bundle-SymbolicName: tw.ntu.svvrl.ultimate.scantu.plugins;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ScantuPlugins
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Bundle-ActivationPolicy: lazy
 Require-Bundle: de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder,
  de.uni_freiburg.informatik.ultimate.ltl2aut,
@@ -13,5 +12,5 @@ Require-Bundle: de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.automata;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.modelcheckerutils;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.smtlib;bundle-version="0.2.1",
- de.uni_freiburg.informatik.ultimate.lib.boogieast;bundle-version="0.2.1"
-Bundle-Activator: tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin.Activator
+ de.uni_freiburg.informatik.ultimate.lib.boogieast;bundle-version="0.2.1",
+ tw.ntu.svvrl.ultimate.lib.modelchecker

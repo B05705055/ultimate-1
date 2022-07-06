@@ -10,7 +10,7 @@ import tw.ntu.svvrl.ultimate.scantu.actions.RunToolchainAction;
 public class RunDoubleDFSReductionToolchainAction extends RunToolchainAction {
 	
 	private static final String LABEL = "Run Double DFS with Reduction";
-	private static final String TOOLCHAIN_NAME = "SvvrlDebug";
+	private static final String TOOLCHAIN_NAME = "DoubleDFSReduction";
 
 	public RunDoubleDFSReductionToolchainAction(ICore<RunDefinition> icore, ILogger logger, ScantuController controller,
 			IWorkbenchWindow window) {

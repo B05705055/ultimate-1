@@ -39,14 +39,16 @@ public class ModelCheckerDoubleDFSwithReduction{
 	{	
 		mLogger = logger;
 		assistant = mca;
-		
+	}
+	
+	public void run() {
 		// set of initial cfg locations
 		levelNodes.addAll(assistant.getProgramInitialStates());
-		
+				
 		// set of initial states of automaton
 		Set<NeverState> initStates = new HashSet<>();
 		initStates = assistant.getNeverInitialStates();
-		
+				
 		for (int i = 0;i < levelNodes.size();i++) {
 			for(int j = 0;j < initStates.size();j++)
 			{
@@ -62,7 +64,6 @@ public class ModelCheckerDoubleDFSwithReduction{
 			mLogger.info("All specifications hold");
 			return;
 		}
-		
 	}
 	
 	public boolean compare(Stack<Pair<Pair<ProgramState, NeverState>, Integer>> path, ProgramState node, NeverState state, int ab)

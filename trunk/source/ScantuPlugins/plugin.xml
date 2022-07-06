@@ -7,5 +7,11 @@
             class="tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin.DebugPlugin">
       </impl>
    </extension>
+   <extension
+         point="de.uni_freiburg.informatik.ultimate.ep.generator">
+      <impl
+            class="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsreduction.DoubleDFSReduction">
+      </impl>
+   </extension>
 
 </plugin>

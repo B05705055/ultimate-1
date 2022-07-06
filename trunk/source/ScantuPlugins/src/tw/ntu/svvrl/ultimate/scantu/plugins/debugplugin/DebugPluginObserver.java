@@ -39,8 +39,6 @@ public class DebugPluginObserver implements IUnmanagedObserver {
 
 	@Override
 	public void finish() throws Throwable {
-		//System.out.println("aaaaaa" + mNeverClaimNWAContainer);
-		//System.out.println("bbbbbb" + mRcfg);
 		if (mNeverClaimNWAContainer == null || mRcfg == null) {
 			return;
 		}
