@@ -1,4 +1,4 @@
-package tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin;
+package tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsreduction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +11,10 @@ import de.uni_freiburg.informatik.ultimate.core.model.observers.IObserver;
 import de.uni_freiburg.informatik.ultimate.core.model.preferences.IPreferenceInitializer;
 import de.uni_freiburg.informatik.ultimate.core.model.services.IUltimateServiceProvider;
 
-public class DebugPlugin implements IGenerator {
+public class DoubleDFSReduction implements IGenerator {
 	
 	private IUltimateServiceProvider mServices;
-	private DebugPluginObserver mObserver;
+	private DoubleDFSReductionObserver mObserver;
 	
 	private boolean mUseObserver;
 
@@ -57,7 +57,7 @@ public class DebugPlugin implements IGenerator {
 	public List<IObserver> getObservers() {
 		if (mUseObserver) {
 			if (mObserver == null) {
-				mObserver = new DebugPluginObserver(mServices);
+				mObserver = new DoubleDFSReductionObserver(mServices);
 			}
 			return Collections.singletonList(mObserver);
 		}

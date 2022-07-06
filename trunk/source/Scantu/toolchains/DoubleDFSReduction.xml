@@ -9,6 +9,6 @@
 	<plugin id="de.uni_freiburg.informatik.ultimate.plugins.output.jungvisualization"/>
 	<plugin id="de.uni_freiburg.informatik.ultimate.ltl2aut"/>
 	<plugin id="de.uni_freiburg.informatik.ultimate.plugins.output.jungvisualization"/>
-	<plugin id="tw.ntu.svvrl.ultimate.scantu.plugins.debugplugin"/>
+	<plugin id="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsreduction"/>
 	</toolchain>
 </rundefinition>
