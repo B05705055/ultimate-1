@@ -1,4 +1,4 @@
-//@ ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 10));
+//@ ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 2));
 
 /* Testcase from Threader's distribution. For details see:
    http://www.model.in.tum.de/~popeea/research/threader

@@ -1,44 +1,57 @@
-//#Unsafe
-/*
- * This is an example for a non-obvious bug in a C program.
- * Assume that array arr is some cyclic buffer of size 256.
- * In each iteration we write two new values in the buffer.
- * Since the current position pos is an unsigned char one might expect that
- * (pos + 1) is always between 0 and 255. However, because of the "usual
- * arithmetic conversions" the expression pos + 1 has type int and can be
- * evaluated to 256.
- * 
- * Date: 2016-02-11
- * Author: heizmann@informatik.uni-freiburg.de
- * 
- */
-#include <stdlib.h>
+//@ ltl invariant positive: <>AP(x == 2);
 
-int main() {
-    int aaa[2];
-    aaa[0] = 5;aaa[1] = 3;
-    int x = aaa[0];
-    int aaa[2];
-	
-	for (int i = 0; i < 10; i++){
-		fadsgaeg;
-	}
-	
-	for (int i /*
-		commets test 1
-	*/){uncomment /*commets test 2*/ part}
-	
-	for (int i = 0; i < 10; i++){000000; 	}
-	
-	for (int i = "{";)  	{11111;}
-	
-	if(int i = "{;)  	{22222;}
-	fsdgsdhshs") test no block if;
-	
-	for(int i = "{;)  	{22222;}
-	fsdgsdhshs") test no block for;
-	
-	if(int i = "{\";")  	{33333;}
+/* Testcase from Threader's distribution. For details see:
+   http://www.model.in.tum.de/~popeea/research/threader
+*/
 
+#include <pthread.h>
+typedef unsigned long int pthread_t;
+
+int flag1 = 0, flag2 = 0; // boolean flags
+int turn; // integer variable to hold the ID of the thread whose turn is it
+int x = 0; // boolean variable to test mutual exclusion
+
+void *thr1(void *_) {
+    flag1 = 1;
+    turn = 1;
+    int f21 = flag2;
+    int t1 = turn;
+    while (f21==1 && t1==1) {
+        f21 = flag2;
+        t1 = turn;
+    };
+    // begin: critical section
+    // x = 0;
+    x++;
+    //@ assert x <= 0;
+    // end: critical section
+    flag1 = 0;
     return 0;
+}
+
+void *thr2(void *_) {
+    flag2 = 1;
+    turn = 0;
+    int f12 = flag1;
+    int t2 = turn;
+    while (f12==1 && t2==0) {
+        f12 = flag1;
+        t2 = turn;
+    };
+    // begin: critical section
+    // x = 1;
+    x++;
+    //@ assert x >= 0;
+    // end: critical section
+    flag2 = 0;
+    return 0;
+}
+  
+int main() {
+  pthread_t t1, t2;
+  pthread_create(&t1, 0, thr1, 0);
+  pthread_create(&t2, 0, thr2, 0);
+  pthread_join(t1, 0);
+  pthread_join(t2, 0);
+  return 0;
 }

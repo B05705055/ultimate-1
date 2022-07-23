@@ -252,7 +252,8 @@ public class ModelCheckerDoubleDFSwithReduction{
 			//if(b==2 && compare(StateSpace, node, nextState, b))
 			//if(b==2 && compare2(CompoundStack, node, nextState))
 			//if(b==2 && node.equals(seed.getFirst()) && nextState.equals(seed.getSecond()))
-			if(b==2 && node.toString().equals(seed.getFirst().toString()) && nextState.toString().equals(seed.getSecond().toString()))
+			
+			if(seed != null && b==2 && node.toString().equals(seed.getFirst().toString()) && nextState.toString().equals(seed.getSecond().toString()))
 			{
 				List<List<Long>> fList = getFairList(ErrorPath);
 				for(int a = 0; a < fList.size();a++)
