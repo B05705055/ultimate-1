@@ -25,6 +25,8 @@ public class TestVerifier {
 	boolean mError = false;
 	boolean mFisrtMove = false;
 	
+	private boolean DfsShutdown = false;
+	
 	public TestVerifier(final ILogger logger, final ModelCheckerAssistant mca) {
 		mAssistant = mca;
 		mLogger = logger;
@@ -55,6 +57,9 @@ public class TestVerifier {
 	 * Büchi Automaton move
 	 */
 	private void Dfs(final int N) {
+		if (DfsShutdown) {
+			return;
+		}
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
 
 		final List<OutgoingInternalTransition<CodeBlock, NeverState>> nxt 
@@ -67,6 +72,7 @@ public class TestVerifier {
 				mFound = true;
 				mLogger.info("Acceptance Cycle Found");
 				printTrace(mTrace);
+				DfsShutdown = true;
 				return;
 			}
 			final Pair<Pair<ProgramState, NeverState>, Integer> succN = new Pair<>(succ, N);
@@ -97,6 +103,9 @@ public class TestVerifier {
 	 * System move
 	 */
 	private void dfs(int N) {
+		if (DfsShutdown) {
+			return;
+		}
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
 		if(getProgramState(s).isErrorState()) {
 			mLogger.info("Reach Error State");
