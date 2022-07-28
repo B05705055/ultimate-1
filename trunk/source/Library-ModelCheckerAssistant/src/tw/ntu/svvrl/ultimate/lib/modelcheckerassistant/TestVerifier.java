@@ -60,14 +60,20 @@ public class TestVerifier {
 		if (DfsShutdown) {
 			return;
 		}
+		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
+		System.out.println("Now do the DFS, the state is: " + s + ", and the N is: " + N);
+		System.out.println("Now do the DFS, the stateSpace is: " + mStateSpace);
 
 		final List<OutgoingInternalTransition<CodeBlock, NeverState>> nxt 
 			= mAssistant.getNeverEnabledTrans(getNeverState(s), getProgramState(s));
 		
+		System.out.println("Now do the DFS, the nxt transitions are: " + nxt);
+		
 		for(final OutgoingInternalTransition<CodeBlock, NeverState> t : nxt) {
 			final NeverState nxtNs = mAssistant.doNeverTransition(getNeverState(s), t);
 			final Pair<ProgramState, NeverState> succ = new Pair<>(getProgramState(s), nxtNs);
+			System.out.println("Now do the DFS, the succ state is: " + succ);
 			if(N == 2 && isEqual(succ, mSeed)) {
 				mFound = true;
 				mLogger.info("Acceptance Cycle Found");
@@ -76,6 +82,7 @@ public class TestVerifier {
 				return;
 			}
 			final Pair<Pair<ProgramState, NeverState>, Integer> succN = new Pair<>(succ, N);
+			System.out.println("Now do the DFS, the succN state is: " + succN);
 			if(!inStateSpace(succN) || mFisrtMove) {
 				mFisrtMove = false;
 				mStateSpace.add(succN);
@@ -106,21 +113,27 @@ public class TestVerifier {
 		if (DfsShutdown) {
 			return;
 		}
+		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
+		System.out.println("Now do the dfs, the state is: " + s + ", and the N is: " + N);
+		System.out.println("Now do the dfs, the stateSpace is: " + mStateSpace);
+		
 		if(getProgramState(s).isErrorState()) {
 			mLogger.info("Reach Error State");
 			mError = true;
+			DfsShutdown = true;
 			return;
 		}
 		
 		List<Long> order = mAssistant.getProgramSafestOrder(getProgramState(s));
-		
 		
 		for(Long i : order) {
 			boolean notInStack = true;
 			boolean atLeastOneSuccessor = false;
 			final List<ProgramStateTransition> nxt 
 				= mAssistant.getProgramEnabledTransByThreadID(getProgramState(s), i);
+			
+			System.out.println("Now do the dfs, the nxt transitions are: " + nxt);
 			
 			NilSelfLoop nilSelfLoop = mAssistant.checkNeedOfSelfLoop(getProgramState(s));
 			if(nilSelfLoop != null) {
@@ -131,18 +144,23 @@ public class TestVerifier {
 				final ProgramState nxtPs = mAssistant.doProgramTransition(getProgramState(s), t);
 				final Pair<ProgramState, NeverState> succ = new Pair<>(nxtPs, getNeverState(s));
 				final Pair<Pair<ProgramState, NeverState>, Integer> succN = new Pair<>(succ, N);
+				
+				System.out.println("Now do the dfs, the succ state is: " + succ);
+				System.out.println("Now do the dfs, the succN state is: " + succN);
+				
 				if(!inStateSpace(succN)) {
 					//mStateSpace.add(succN);
 					mTrace.push(succ);
 					Dfs(N);
-				} else if(inTrace(succ)) {
+				}
+				else if(inTrace(succ)) {
 					notInStack = false;
 				}
 				atLeastOneSuccessor = true;
 			}
-//			if(notInStack && atLeastOneSuccessor) {
-//				break;
-//			}
+			if(notInStack && atLeastOneSuccessor) {
+				break;
+			}
 		}
 		mTrace.pop();
 	}
