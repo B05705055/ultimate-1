@@ -30,7 +30,7 @@ public class CACSLCodeBeautifier {
 		return outputString;
 	}
 	
-	/* codeBeautify()
+	/** codeBeautify()
 	 * Input:   original code   - array of String
 	 * Output: beautified code  - array of String
 	 */
@@ -42,7 +42,7 @@ public class CACSLCodeBeautifier {
 			String nowCodeLine = inputCode.get(codeLine);
 			String uncheckedCodeLine = nowCodeLine;
 			
-			//System.out.println("undelete: \"" + uncheckedCodeLine + "\", length = " + uncheckedCodeLine.length());
+			/* remove the space, tab in front of the code line. */
 			while (uncheckedCodeLine.length() > 0 &&
 					(uncheckedCodeLine.substring(0, 1).equals("\s") || uncheckedCodeLine.substring(0, 1).equals("\t"))) {
 				if (uncheckedCodeLine.substring(0, 1).equals("\s")) {
@@ -52,7 +52,6 @@ public class CACSLCodeBeautifier {
 					uncheckedCodeLine = uncheckedCodeLine.replaceFirst("\\t+", "");
 				}
 			}
-			//System.out.println("  delete: \"" + uncheckedCodeLine + "\", length = " + uncheckedCodeLine.length());
 			if (uncheckedCodeLine.length() == 0) {
 				continue;
 			}

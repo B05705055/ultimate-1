@@ -1,4 +1,4 @@
-//@ ltl invariant positive: <>AP(x == 2);
+//@ ltl invariant positive: []((AP(flag1 == 0) || AP(flag2 == 0)) ==> <>AP(x == 2));
 
 /* Testcase from Threader's distribution. For details see:
    http://www.model.in.tum.de/~popeea/research/threader
@@ -7,12 +7,11 @@
 #include <pthread.h>
 typedef unsigned long int pthread_t;
 
-int flag1 = 0, flag2 = 0; // boolean flags
+int flag1 = 1, flag2 = 1; // boolean flags
 int turn; // integer variable to hold the ID of the thread whose turn is it
 int x = 0; // boolean variable to test mutual exclusion
 
 void *thr1(void *_) {
-    flag1 = 1;
     turn = 1;
     int f21 = flag2;
     int t1 = turn;
@@ -22,15 +21,16 @@ void *thr1(void *_) {
     };
     // begin: critical section
     // x = 0;
-    x++;
-    //@ assert x <= 0;
+	int y1 = 0;
+	y1 = x;
+	y1++;
+    x = y1;
     // end: critical section
     flag1 = 0;
     return 0;
 }
 
 void *thr2(void *_) {
-    flag2 = 1;
     turn = 0;
     int f12 = flag1;
     int t2 = turn;
@@ -40,8 +40,10 @@ void *thr2(void *_) {
     };
     // begin: critical section
     // x = 1;
-    x++;
-    //@ assert x >= 0;
+    int y2 = 0;
+	y2 = x;
+	y2++;
+    x = y2;
     // end: critical section
     flag2 = 0;
     return 0;
