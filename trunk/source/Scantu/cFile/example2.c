@@ -1,4 +1,4 @@
-//@ ltl invariant positive: [](AP(x == 0) ==> []AP(x == 1));
+//@ ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 2));
 
 #include <pthread.h>
 typedef unsigned long int pthread_t;

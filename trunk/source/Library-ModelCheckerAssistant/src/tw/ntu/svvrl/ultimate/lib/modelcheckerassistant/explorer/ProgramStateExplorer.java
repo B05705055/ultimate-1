@@ -19,6 +19,7 @@ import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.Boo
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.ForkThreadCurrent;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.JoinThreadCurrent;
+import de.uni_freiburg.informatik.ultimate.util.datastructures.relation.Pair;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.ForkHandler;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.FuncInitValuationInfo;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.JoinHandler;
@@ -312,6 +313,64 @@ public class ProgramStateExplorer {
 		 }
 		 
 		 return result;
+	}
+	
+	//public List<Long> getSafestOrderDebug(final ProgramState p) {
+	public Pair<List<Long>, Boolean> getSafestOrderDebug(final ProgramState p) {
+		final Set<Long> threadIDs = p.getThreadIDs();
+		final Map<Long, Float> ID2SafeProp = new HashMap<>();
+		boolean whetherAllUnsafe = true;
+		for(final long tid : threadIDs) {
+			final List<ProgramStateTransition> threadEnabledTrans = getEnabledTransByThreadID(p, tid);
+			int safeCount = 0;
+			boolean accessGlobal = false;
+			for(final ProgramStateTransition pt : threadEnabledTrans) {
+				if(pt instanceof NilSelfLoop) {
+					safeCount++;
+				} else if(pt instanceof ThreadStateTransition) {
+					if(((ThreadStateTransition) pt).accessOnlyLocalVar()) {
+						safeCount++;
+					}
+					else {
+						accessGlobal = true;
+					}
+				} else {
+					throw new UnsupportedOperationException("Unkown ThreadStateTransition type: "
+							+ pt.getClass().getSimpleName());
+				}
+			}
+			if(!accessGlobal) {
+				whetherAllUnsafe = false;
+			}
+			if(threadEnabledTrans.size() == 0) {
+				ID2SafeProp.put(tid, (float) -1);
+			} else {
+				ID2SafeProp.put(tid, (float)safeCount / threadEnabledTrans.size());
+			}
+		}
+		
+		/**
+		 * Sort ID2SafeProp by prop.
+		 */
+		 List<Map.Entry<Long, Float>> l = new ArrayList<Map.Entry<Long, Float>>(ID2SafeProp.entrySet());
+		 l.sort(new Comparator<Map.Entry<Long, Float>>() {
+	          @Override
+	          public int compare(Map.Entry<Long, Float> o1, Map.Entry<Long, Float> o2) {
+	              return o2.getValue().compareTo(o1.getValue());
+	          }
+	      });
+		 
+		 /**
+		  * Add sorted threadIDs to result.
+		  */
+		 List<Long> result = new ArrayList<>();
+		 for(final Map.Entry<Long, Float> e : l) {
+			 result.add(e.getKey());
+		 }
+		 
+		 Pair<List<Long>, Boolean> resultWithSafeMark = new Pair<>(result, whetherAllUnsafe);
+		 return resultWithSafeMark;
+		 //return result;
 	}
 	
 	/**

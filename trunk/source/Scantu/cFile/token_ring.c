@@ -1,3 +1,5 @@
+//@ ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 4));
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <pthread.h>

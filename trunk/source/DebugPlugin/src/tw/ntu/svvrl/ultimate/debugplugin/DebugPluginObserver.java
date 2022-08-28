@@ -98,7 +98,8 @@ public class DebugPluginObserver implements IUnmanagedObserver {
 		mModelCheckerAssistant = new ModelCheckerAssistant(mNeverClaimNWAContainer.getValue(), mRcfg, mLogger, mServices);
 		//mModelCheckerAssistant = new ModelCheckerAssistant(mRcfg, mLogger, mServices);
 		
-		TestVerifier v = new TestVerifier(mLogger, mModelCheckerAssistant);
+		TestVerifierDebug v = new TestVerifierDebug(mLogger, mModelCheckerAssistant);
+		//TestVerifier v = new TestVerifier(mLogger, mModelCheckerAssistant);
 		v.run();
 		
 		/*-----------debugging-----------*/

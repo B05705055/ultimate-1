@@ -24,7 +24,10 @@ void *thr1(void *_) {
         t1 = turn;
     };
     // begin: critical section
-    x++;
+    int y1 = 0;
+	y1 = x;
+	y1++;
+    x = y1;
     // end: critical section
     flag[0] = 0;
     return 0;
@@ -40,7 +43,10 @@ void *thr2(void *_) {
         t2 = turn;
     };
     // begin: critical section
-    x++;
+    int y2 = 0;
+	y2 = x;
+	y2++;
+    x = y2;
     // end: critical section
     flag[1] = 0;
     return 0;

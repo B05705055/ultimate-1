@@ -9,6 +9,7 @@ import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.core.model.services.IUltimateServiceProvider;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.BoogieIcfgContainer;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
+import de.uni_freiburg.informatik.ultimate.util.datastructures.relation.Pair;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.explorer.ProgramStateExplorer;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.neverstate.NeverState;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.NilSelfLoop;
@@ -98,6 +99,10 @@ public class ModelCheckerAssistant {
 	
 	public List<Long> getProgramSafestOrder(final ProgramState p) {
 		return mProgramStateExplorer.getSafestOrder(p);
+	}
+	
+	public Pair<List<Long>, Boolean> getProgramSafestOrderDebug(final ProgramState p) {
+		return mProgramStateExplorer.getSafestOrderDebug(p);
 	}
 	
 	public List<OutgoingInternalTransition<CodeBlock, NeverState>> 

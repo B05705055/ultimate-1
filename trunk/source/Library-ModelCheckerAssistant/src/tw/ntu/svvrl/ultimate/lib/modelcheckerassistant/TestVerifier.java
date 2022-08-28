@@ -65,7 +65,7 @@ public class TestVerifier {
 		}
 		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
-		System.out.println("Now do the DFS, the state is: " + s + ", and the N is: " + N);
+		System.out.println("Now do the DFS, the state is: " + s + ", and the N is: " + mStateSpace.size());
 		//System.out.println("Now do the DFS, the stateSpace is: " + mStateSpace_Dfs);
 
 		final List<OutgoingInternalTransition<CodeBlock, NeverState>> nxt 
@@ -120,7 +120,7 @@ public class TestVerifier {
 		}
 		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
-		System.out.println("Now do the dfs, the state is: " + s + ", and the N is: " + N);
+		System.out.println("Now do the dfs, the state is: " + s + ", and the N is: " + mStateSpace.size());
 		//System.out.println("Now do the dfs, the stateSpace is: " + mStateSpace_dfs);
 		
 		if(getProgramState(s).isErrorState()) {
