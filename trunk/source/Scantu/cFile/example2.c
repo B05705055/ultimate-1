@@ -1,4 +1,5 @@
-//@ ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 2));
+// ltl invariant positive: [](AP(x == 0) ==> <>AP(x == 2));
+//@ ltl invariant positive: []AP(\at(x, L) == 2);
 
 #include <pthread.h>
 typedef unsigned long int pthread_t;
@@ -18,5 +19,5 @@ int main() {
 	pthread_create(&t2, 0, thr2, 0);
 	pthread_join(t1, 0);
 	pthread_join(t2, 0);
-	return 0;
+	L: return 0;
 }

@@ -1,4 +1,4 @@
-//@ ltl invariant positive: (!(<>([]AP(fairness_label == 0) || []AP(fairness_label == 1))) U AP(fairness_label == 2)) ==> <>[]AP(x == 2);
+//@ ltl invariant positive: (!(<>([]AP(fairness_label == 0) || []AP(fairness_label == 1))) U AP(fairness_label == 2)) ==> <>AP(x == 2);
 
 // !<>[]22    []<> to 23or25
 
@@ -32,7 +32,7 @@ void *thr0(void *_) {
     // end: critical section
     flag0 = 0;
 	fairness_label = 2;
-    pthread_exit(NULL);
+    return 0;
 }
 
 void *thr1(void *_) {
@@ -51,7 +51,7 @@ void *thr1(void *_) {
     // end: critical section
     flag1 = 0;
 	fairness_label = 2;
-    pthread_exit(NULL);
+    return 0;
 }
   
 int main() {
