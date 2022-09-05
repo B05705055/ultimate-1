@@ -45,8 +45,7 @@ int main() {
 	pthread_t tt[N];
 	
 	for (int i = 0; i < N; i++){
-	    pthread_t* ttt = &tt[i];
-		pthread_create(ttt, NULL, thr, &thr_num_array[i]);
+		pthread_create(&tt[i], NULL, thr, &thr_num_array[i]);
 	}
 	
 	for (int i = 0; i < N; i++){

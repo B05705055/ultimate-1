@@ -67,7 +67,7 @@ public class TestVerifierDebug {
 		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
 		//mLogger.info("Now do the DFS, the state is: " + s + ", and the N is: " + mStateSpace.size());
-		System.out.println("Now do the DFS, the state is: " + s + ", and the N is: " + mStateSpace.size());
+		//System.out.println("Now do the DFS, the state is: " + s + ", and the N is: " + mStateSpace.size());
 
 		final List<OutgoingInternalTransition<CodeBlock, NeverState>> nxt 
 			= mAssistant.getNeverEnabledTrans(getNeverState(s), getProgramState(s));
@@ -92,7 +92,7 @@ public class TestVerifierDebug {
 		
 		final Pair<ProgramState, NeverState> s = mTrace.peek();
 		//mLogger.info("Now do the dfs, the state is: " + s + ", and the N is: " + mStateSpace.size());
-		System.out.println("Now do the dfs, the state is: " + s + ", and the N is: " + mStateSpace.size());
+		//System.out.println("Now do the dfs, the state is: " + s + ", and the N is: " + mStateSpace.size());
 		
 		if(getProgramState(s).isErrorState()) {
 			mLogger.info("Reach Error State");
