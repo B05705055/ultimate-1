@@ -11,6 +11,8 @@ int x = 0;
 int level[N] = {-1};
 int last_to_enter[N-1] = {-1};
 
+int thr_num_array[N];
+
 void *thr(void* k){
     int i = *((int *) k);
     for(int l = 0; l < N-1; ++l)
@@ -36,16 +38,19 @@ void *thr(void* k){
 }
   
 int main() {
-    int i[3] = {0, 1, 2};
-
-    pthread_t t0, t1, t2;
-    pthread_create(&t0, 0, thr, (void*) &i[0]);
-    pthread_create(&t1, 0, thr, (void*) &i[1]);
-    pthread_create(&t2, 0, thr, (void*) &i[2]);
-
-    pthread_join(t0, 0);
-    pthread_join(t1, 0);
-    pthread_join(t2, 0);
+    for (int i = 0; i < N; i++){
+		thr_num_array[i] = i;
+	}
+	
+	pthread_t tt[N];
+	
+	for (int i = 0; i < N; i++){
+		pthread_create(&tt[i], NULL, thr, &thr_num_array[i]);
+	}
+	
+	for (int i = 0; i < N; i++){
+		pthread_join(tt[i], NULL);
+	}
 	
     return 0;
 }
