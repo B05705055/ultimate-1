@@ -11,9 +11,7 @@ import de.uni_freiburg.informatik.ultimate.ltl2aut.never2nwa.NWAContainer;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.BoogieIcfgContainer;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.util.IcfgSizeBenchmark;
-import tw.ntu.svvrl.ultimate.lib.modelchecker.ModelCheckerDoubleDFSwithReduction;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.ModelCheckerAssistant;
-import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.TestVerifier;
 
 public class DoubleDFSReductionObserver implements IUnmanagedObserver {
 	
@@ -51,8 +49,8 @@ public class DoubleDFSReductionObserver implements IUnmanagedObserver {
 		mModelCheckerAssistant = new ModelCheckerAssistant(mNeverClaimNWAContainer.getValue(), mRcfg, mLogger, mServices);
 		//mModelCheckerAssistant = new ModelCheckerAssistant(mRcfg, mLogger, mServices);
 		
-		ModelCheckerDoubleDFSwithReduction mc = new ModelCheckerDoubleDFSwithReduction(mLogger, mModelCheckerAssistant);
-		mc.run();
+		RunDoubleDFSReduction rddfsr = new RunDoubleDFSReduction(mLogger, mModelCheckerAssistant);
+		rddfsr.run();
 	}
 	
 	private void reportSizeBenchmark(final String message, final INestedWordAutomaton<CodeBlock, String> nwa) {

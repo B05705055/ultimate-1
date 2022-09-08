@@ -6,11 +6,13 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ScantuPlugins
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: de.uni_freiburg.informatik.ultimate.core;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.util;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.modelcheckerutils;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.boogieast;bundle-version="0.2.1",
+ de.uni_freiburg.informatik.ultimate.lib.core;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder,
  de.uni_freiburg.informatik.ultimate.ltl2aut,
  tw.ntu.svvrl.ultimate.lib.modelcheckerassistant;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.automata;bundle-version="0.2.1",
- de.uni_freiburg.informatik.ultimate.lib.modelcheckerutils;bundle-version="0.2.1",
  de.uni_freiburg.informatik.ultimate.lib.smtlib;bundle-version="0.2.1",
- de.uni_freiburg.informatik.ultimate.lib.boogieast;bundle-version="0.2.1",
  tw.ntu.svvrl.ultimate.lib.modelchecker
