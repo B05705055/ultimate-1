@@ -60,13 +60,20 @@ public class CACSLCodeBeautifier {
 				IN_FOR = true;
 			}
 			for (int charIndex = 0; charIndex < uncheckedCodeLine.length(); charIndex++) {
-				if (charIndex < uncheckedCodeLine.length()-1 && uncheckedCodeLine.substring(charIndex, charIndex+2).equals("/*") &&
+				if (charIndex < uncheckedCodeLine.length()-1 && uncheckedCodeLine.substring(charIndex, charIndex+2).equals("//") &&
 						IN_COMMENT == false && IN_STRING == false) {
-					IN_COMMENT = true;
 					if (charIndex != 0) {
 						beautifiedCode.add(addTab(uncheckedCodeLine.substring(0, charIndex), BLOCK_LEVEL));
-						continue;
 					}
+					break;
+				}
+				else if (charIndex < uncheckedCodeLine.length()-1 && uncheckedCodeLine.substring(charIndex, charIndex+2).equals("/*") &&
+						IN_COMMENT == false && IN_STRING == false) {
+					if (charIndex != 0) {
+						beautifiedCode.add(addTab(uncheckedCodeLine.substring(0, charIndex), BLOCK_LEVEL));
+					}
+					IN_COMMENT = true;
+					continue;
 				}
 				else if (charIndex < uncheckedCodeLine.length()-1 && uncheckedCodeLine.substring(charIndex, charIndex+2).equals("*/") &&
 						IN_COMMENT == true && IN_STRING == false) {
@@ -115,7 +122,7 @@ public class CACSLCodeBeautifier {
 						beautifiedCode.add(addTab(uncheckedCodeLine.substring(0, 1), BLOCK_LEVEL));
 						if (uncheckedCodeLine.length() > 1) {
 							ArrayList<String> newCodeLines = new ArrayList<String>();
-							newCodeLines.add(uncheckedCodeLine.substring(charIndex));
+							newCodeLines.add(uncheckedCodeLine.substring(charIndex+1));
 							beautifiedCode.addAll(codeBeautify(newCodeLines));
 						}
 						break;
@@ -123,7 +130,7 @@ public class CACSLCodeBeautifier {
 					else {
 						beautifiedCode.add(addTab(uncheckedCodeLine.substring(0, charIndex), BLOCK_LEVEL));
 						ArrayList<String> newCodeLines = new ArrayList<String>();
-						newCodeLines.add(uncheckedCodeLine.substring(charIndex));
+						newCodeLines.add(uncheckedCodeLine.substring(charIndex+1));
 						beautifiedCode.addAll(codeBeautify(newCodeLines));
 						break;
 					}

@@ -5,6 +5,7 @@
 */
 
 #include <pthread.h>
+#define N 2
 typedef unsigned long int pthread_t;
 
 int flag0 = 0, flag1 = 0; // boolean flags

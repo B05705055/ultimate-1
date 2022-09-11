@@ -42,7 +42,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction mAddAnnotationBelowAction;
 	
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
+	private IWorkbenchAction mRunDoubleDFSToolchainAction;
 	private IWorkbenchAction mRunDoubleDFSReductionToolchainAction;
+	private IWorkbenchAction mRunSCCDFSToolchainAction;
+	private IWorkbenchAction mRunSCCDFSReductionToolchainAction;
 	
 	private IWorkbenchAction mRunCInline2BoogiePrinterToolchainAction;
 
@@ -65,8 +68,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		
 		mRunSvvrlDebugToolchainAction = registerAction(
 				new RunSvvrlDebugToolchainAction(mCore, mLogger, mController, window));
+		mRunDoubleDFSToolchainAction = registerAction(
+				new RunDoubleDFSToolchainAction(mCore, mLogger, mController, window));
 		mRunDoubleDFSReductionToolchainAction = registerAction(
 				new RunDoubleDFSReductionToolchainAction(mCore, mLogger, mController, window));
+		mRunSCCDFSToolchainAction = registerAction(
+				new RunSCCDFSToolchainAction(mCore, mLogger, mController, window));
+		mRunSCCDFSReductionToolchainAction = registerAction(
+				new RunSCCDFSReductionToolchainAction(mCore, mLogger, mController, window));
 		
 		mRunCInline2BoogiePrinterToolchainAction = registerAction(
 				new RunCInline2BoogiePrinterToolchainAction(mCore, mLogger, mController, window));
@@ -90,7 +99,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     	
     	final MenuManager modelCheckerMenu = new MenuManager("&Model Checker", "model checker");
     	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);
+    	modelCheckerMenu.add(mRunDoubleDFSToolchainAction);
     	modelCheckerMenu.add(mRunDoubleDFSReductionToolchainAction);
+    	modelCheckerMenu.add(mRunSCCDFSToolchainAction);
+    	modelCheckerMenu.add(mRunSCCDFSReductionToolchainAction);
     	
     	final MenuManager toolMenu = new MenuManager("&Tool", "tool");
     	toolMenu.add(mRunCInline2BoogiePrinterToolchainAction);

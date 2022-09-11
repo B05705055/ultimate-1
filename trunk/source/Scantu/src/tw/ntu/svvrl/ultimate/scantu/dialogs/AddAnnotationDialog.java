@@ -98,11 +98,11 @@ public class AddAnnotationDialog extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (multiLinesAnnotation.getSelection()) {
-					annotationArea.setLayoutData(new GridData(50, 40));
-					annotationArea.setText("/*@\n*@");
+					annotationArea.setLayoutData(new GridData(50, 100));
+					annotationArea.setText("/*@\n*@\n*@\n*@\n*@");
 					editArea.dispose();
 					editArea = new Text(editComposite, SWT.MULTI);
-					editArea.setLayoutData(new GridData(450, 40));
+					editArea.setLayoutData(new GridData(450, 100));
 					editArea.getParent().layout();
 					
 					annotationAreaEnd.dispose();
@@ -114,16 +114,118 @@ public class AddAnnotationDialog extends Dialog {
 			}
 		});
 		new Label(operateComposite, SWT.NONE);
+		
 		new Label(operateComposite, SWT.NONE);
 		
 		Text title2 = new Text(operateComposite, SWT.READ_ONLY);
 		title2.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
-		title2.setText("Statement Annotation");
+		title2.setText("LTL Property Annotation");
+		
+		Button LTL_inv_pos = new Button(operateComposite, SWT.NONE);
+		LTL_inv_pos.setLayoutData(new GridData(80, SWT.DEFAULT));
+		LTL_inv_pos.setText("ltl inv pos");
+		LTL_inv_pos.addSelectionListener(createAdapter("ltl invariant positive: "));
+		Button AP = new Button(operateComposite, SWT.NONE);
+		AP.setLayoutData(new GridData(80, SWT.DEFAULT));
+		AP.setText("AP");
+		AP.addSelectionListener(createAdapter("AP()"));
+		new Label(operateComposite, SWT.NONE);
+		
+		Button always = new Button(operateComposite, SWT.NONE);
+		always.setLayoutData(new GridData(80, SWT.DEFAULT));
+		always.setText("[]");
+		always.addSelectionListener(createAdapter("[]"));
+		Button eventually = new Button(operateComposite, SWT.NONE);
+		eventually.setLayoutData(new GridData(80, SWT.DEFAULT));
+		eventually.setText("<>");
+		eventually.addSelectionListener(createAdapter("<>"));
+		Button bracket = new Button(operateComposite, SWT.NONE);
+		bracket.setLayoutData(new GridData(80, SWT.DEFAULT));
+		bracket.setText("()");
+		bracket.addSelectionListener(createAdapter("()"));
+		
+		Button next = new Button(operateComposite, SWT.NONE);
+		next.setLayoutData(new GridData(80, SWT.DEFAULT));
+		next.setText("X");
+		next.addSelectionListener(createAdapter("X"));
+		Button until = new Button(operateComposite, SWT.NONE);
+		until.setLayoutData(new GridData(80, SWT.DEFAULT));
+		until.setText("U");
+		until.addSelectionListener(createAdapter("U "));
+		Button release = new Button(operateComposite, SWT.NONE);
+		release.setLayoutData(new GridData(80, SWT.DEFAULT));
+		release.setText("R");
+		release.addSelectionListener(createAdapter("R "));
+		
+		Button and = new Button(operateComposite, SWT.NONE);
+		and.setLayoutData(new GridData(80, SWT.DEFAULT));
+		and.setText("&&&&");
+		and.addSelectionListener(createAdapter("&& "));
+		Button or = new Button(operateComposite, SWT.NONE);
+		or.setLayoutData(new GridData(80, SWT.DEFAULT));
+		or.setText("||");
+		or.addSelectionListener(createAdapter("|| "));
+		Button negative = new Button(operateComposite, SWT.NONE);
+		negative.setLayoutData(new GridData(80, SWT.DEFAULT));
+		negative.setText("!");
+		negative.addSelectionListener(createAdapter("!"));
+		
+		Button imply = new Button(operateComposite, SWT.NONE);
+		imply.setLayoutData(new GridData(80, SWT.DEFAULT));
+		imply.setText("==>");
+		imply.addSelectionListener(createAdapter("==> "));
+		Button iff = new Button(operateComposite, SWT.NONE);
+		iff.setLayoutData(new GridData(80, SWT.DEFAULT));
+		iff.setText("<==>");
+		iff.addSelectionListener(createAdapter("<==> "));
+		new Label(operateComposite, SWT.NONE);
+		
+		new Label(operateComposite, SWT.NONE);
+		
+		Text title3 = new Text(operateComposite, SWT.READ_ONLY);
+		title3.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
+		title3.setText("Operator");
+		
+		Button equal = new Button(operateComposite, SWT.NONE);
+		equal.setLayoutData(new GridData(80, SWT.DEFAULT));
+		equal.setText("==");
+		equal.addSelectionListener(createAdapter("== "));
+		Button geq = new Button(operateComposite, SWT.NONE);
+		geq.setLayoutData(new GridData(80, SWT.DEFAULT));
+		geq.setText(">=");
+		geq.addSelectionListener(createAdapter(">= "));
+		Button leq = new Button(operateComposite, SWT.NONE);
+		leq.setLayoutData(new GridData(80, SWT.DEFAULT));
+		leq.setText("<=");
+		leq.addSelectionListener(createAdapter("<= "));
+		
+		Button neq = new Button(operateComposite, SWT.NONE);
+		neq.setLayoutData(new GridData(80, SWT.DEFAULT));
+		neq.setText("!=");
+		neq.addSelectionListener(createAdapter("!= "));
+		Button greater = new Button(operateComposite, SWT.NONE);
+		greater.setLayoutData(new GridData(80, SWT.DEFAULT));
+		greater.setText(">");
+		greater.addSelectionListener(createAdapter("> "));
+		Button less = new Button(operateComposite, SWT.NONE);
+		less.setLayoutData(new GridData(80, SWT.DEFAULT));
+		less.setText("<");
+		less.addSelectionListener(createAdapter("< "));
+		
+		new Label(operateComposite, SWT.NONE);
+		
+		Text title4 = new Text(operateComposite, SWT.READ_ONLY);
+		title4.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
+		title4.setText("Statement Annotation");
 		
 		Button assertion = new Button(operateComposite, SWT.NONE);
 		assertion.setLayoutData(new GridData(80, SWT.DEFAULT));
 		assertion.setText("assert");
 		assertion.addSelectionListener(createAdapter("assert "));
+		Button loop_inv = new Button(operateComposite, SWT.NONE);
+		loop_inv.setLayoutData(new GridData(80, SWT.DEFAULT));
+		loop_inv.setText("loop inv");
+		loop_inv.addSelectionListener(createAdapter("loop invariant "));
 		
 		Label emptyLabel = new Label(operateComposite, SWT.NONE);
 		emptyLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
