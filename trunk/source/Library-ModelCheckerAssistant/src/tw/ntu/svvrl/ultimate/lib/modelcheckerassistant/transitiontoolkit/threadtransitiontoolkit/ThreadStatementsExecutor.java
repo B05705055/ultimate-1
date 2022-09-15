@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.NotImplementedException;
 
 import de.uni_freiburg.informatik.ultimate.boogie.ast.ArrayLHS;
@@ -245,7 +247,24 @@ public class ThreadStatementsExecutor extends StatementsExecutor<ThreadState> {
 						updateThreadState(procName, varName, value);
 						break;
 					case BoogiePrimitiveType.INT:
-						value = Long.valueOf(r.nextInt());
+						//value = Long.valueOf(r.nextInt());
+						
+						List<Integer> listOfIntegers = varName.chars().boxed().collect(Collectors.toList());
+						String idString = "";
+						for(int loi : listOfIntegers) {
+							idString = idString + String.valueOf(loi);
+						}
+						long idLong = 0;
+						while (idString.length() > 8){
+							String substr = idString.substring(0, 8);
+							idLong += Integer.valueOf(substr);
+							idString = idString.substring(8);
+						}
+						idLong += Integer.valueOf(idString);
+						value = (Long) idLong;
+						
+						//System.out.println("The procName = " + procName + ", and The varName = " + varName + ", and The r = " + value);
+						//updateThreadState(procName, varName, value);
 						updateThreadState(procName, varName, value);
 						break;
 					case BoogiePrimitiveType.REAL:

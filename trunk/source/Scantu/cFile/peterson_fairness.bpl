@@ -118,7 +118,7 @@ implementation thr1(#in~_.base : int, #in~_.offset : int) returns (#res.base : i
 }
 
 procedure ULTIMATE.start() returns ();
-modifies #NULL.base, #NULL.offset, #valid, ~flag0~0, ~flag1~0, ~turn~0, ~x~0, ~fairness_label~0, #pthreadsForks, #memory_int, #length;
+modifies #NULL.base, #NULL.offset, #valid, ~flag0~0, ~flag1~0, ~turn~0, ~x~0, ~fairness_label~0, #pthreadsForks, #length, #memory_int;
 
 implementation ULTIMATE.start() returns (){
     var #t~ret8 : int;
@@ -149,14 +149,22 @@ implementation ULTIMATE.start() returns (){
     havoc main_#t~pre2, main_#t~nondet3, main_#t~pre4, main_#t~nondet5, main_#t~mem6, main_#t~mem7, main_~#t0~0.base, main_~#t0~0.offset, main_~#t1~0.base, main_~#t1~0.offset;
     call main_~#t0~0.base, main_~#t0~0.offset := #Ultimate.allocOnStack(8);
     call main_~#t1~0.base, main_~#t1~0.offset := #Ultimate.allocOnStack(8);
+	
+	
+	
     main_#t~pre2 := #pthreadsForks;
     #pthreadsForks := 1 + #pthreadsForks;
     call write~int(main_#t~pre2, main_~#t0~0.base, main_~#t0~0.offset, 8);
     fork main_#t~pre2 thr0(0, 0);
+	
+	
     main_#t~pre4 := #pthreadsForks;
     #pthreadsForks := 1 + #pthreadsForks;
     call write~int(main_#t~pre4, main_~#t1~0.base, main_~#t1~0.offset, 8);
     fork main_#t~pre4 thr1(0, 0);
+	
+	
+	
     call main_#t~mem6 := read~int(main_~#t0~0.base, main_~#t0~0.offset, 8);
     join main_#t~pre2;
     call main_#t~mem7 := read~int(main_~#t1~0.base, main_~#t1~0.offset, 8);

@@ -1,5 +1,5 @@
-// ltl invariant positive: (!(AP(fairness_label_verified == fairness_label_num) ==> []AP(fairness_label_verified == fairness_label_num)) U AP(fairness_label_end == 1)) ==> <>[]AP(x == 1);
-//@ ltl invariant positive: <>[]AP(x == 2);
+//@ ltl invariant positive: (!(AP(fairness_label_verified == fairness_label_num) ==> []AP(fairness_label_verified == fairness_label_num)) U AP(fairness_label_end == 1)) ==> <>[]AP(x == 1);
+// ltl invariant positive: <>[]AP(x == 2);
 // ltl invariant positive: (!(<>([]AP(fairness_label == 0) || []AP(fairness_label == 1))) U AP(fairness_label == 2)) ==> <>[]AP(x == 2);
 
 /* Testcase from Threader's distribution. For details see:
@@ -26,7 +26,7 @@ void *thr(void *k) {
     flag[i] = 1;
     turn = 1 - i;
     while (flag[1-i]==1 && turn==(1-i)) {
-		fairness_label_num = 0;
+		fairness_label_num = i;
 		fairness_label_verified = fairness_label_num;
     };
 	

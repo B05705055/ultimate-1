@@ -10,10 +10,12 @@ import de.uni_freiburg.informatik.ultimate.core.model.services.ILogger;
 import de.uni_freiburg.informatik.ultimate.plugins.generator.rcfgbuilder.cfg.CodeBlock;
 import de.uni_freiburg.informatik.ultimate.util.datastructures.relation.Pair;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.ModelCheckerAssistant;
+//import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.Valuation;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.neverstate.NeverState;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.NilSelfLoop;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.ProgramState;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.ProgramStateTransition;
+import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.threadstate.ThreadState;
 
 public class RunDoubleDFSReduction {
 	private final ModelCheckerAssistant mAssistant;
@@ -132,6 +134,15 @@ public class RunDoubleDFSReduction {
 				}
 				
 				if(!inStateSpace(succN)) {
+					
+					/*if (succN.toString().equals("[[[Thread0@L60-1, Thread2@L31, Thread3@L29-2, Thread4@L29-3], NeverState@T0_S3], 1]")) {
+						System.out.println(succN);
+						for(ThreadState ts : succ.getFirst().getThreadStates()) {
+							System.out.println("000");
+							System.out.println(ts.getValuation());
+						}
+					}*/
+					
 					mStateSpace.add(succN);
 					mTrace.push(succ);
 					Dfs(N);
