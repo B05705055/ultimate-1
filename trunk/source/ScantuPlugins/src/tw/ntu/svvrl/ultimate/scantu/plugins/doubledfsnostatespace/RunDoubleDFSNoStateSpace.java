@@ -1,6 +1,5 @@
-package tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsreduction;
+package tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsnostatespace;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,22 +19,20 @@ import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.Progra
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.ProgramStateTransition;
 import tw.ntu.svvrl.ultimate.lib.modelcheckerassistant.state.programstate.threadstate.ThreadState;
 
-public class RunDoubleDFSReduction {
+public class RunDoubleDFSNoStateSpace {
 	private final ModelCheckerAssistant mAssistant;
 	private final ILogger mLogger;
 	
 	Pair<ProgramState, NeverState> mSeed;
 	final Stack<Pair<ProgramState, NeverState>> mTrace = new Stack<>();
-	//final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = new HashSet<>();
-	final Map<String, Set<Pair<Pair<ProgramState, NeverState>, Integer>>> mName2StateSpace = new HashMap<>();
-	//final Map<String, ArrayList<Pair<Pair<ProgramState, NeverState>, Integer>>> mName2StateSpace = new HashMap<>();
+	final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = new HashSet<>();
 	boolean mFound = false;
 	boolean mError = false;
 	boolean mFisrtMove = false;
 	
 	private boolean DfsShutdown = false;
 	
-	public RunDoubleDFSReduction(final ILogger logger, final ModelCheckerAssistant mca) {
+	public RunDoubleDFSNoStateSpace(final ILogger logger, final ModelCheckerAssistant mca) {
 		mAssistant = mca;
 		mLogger = logger;
 		mSeed = null;
@@ -49,11 +46,7 @@ public class RunDoubleDFSReduction {
 			for(final NeverState n : nInitials)
 			{
 				final Pair<ProgramState, NeverState> s0 = new Pair<>(p, n);
-				//mStateSpace.add(new Pair<Pair<ProgramState, NeverState>, Integer>(s0, 1));
-				final Pair<Pair<ProgramState, NeverState>, Integer> s0N = new Pair<Pair<ProgramState, NeverState>, Integer>(s0, 1);
-				final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = new HashSet<>();
-				mStateSpace.add(s0N);
-				mName2StateSpace.put(s0N.toString(), mStateSpace);
+				mStateSpace.add(new Pair<Pair<ProgramState, NeverState>, Integer>(s0, 1));
 				mTrace.push(s0);
 				mFisrtMove = true;
 				Dfs(1);
@@ -112,11 +105,11 @@ public class RunDoubleDFSReduction {
 		//List<Long> order = mAssistant.getProgramSafestOrder(getProgramState(s));
 		Pair<List<Long>, Boolean> reduction_order = mAssistant.getProgramSafestOrderDebug(getProgramState(s));
 		List<Long> order = reduction_order.getFirst();
-		boolean whetherAllUnsafe = reduction_order.getSecond();
+		//boolean whetherAllUnsafe = reduction_order.getSecond();
 		
 		for(Long i : order) {
-			boolean notInStack = true;
-			boolean atLeastOneSuccessor = false;
+			//boolean notInStack = true;
+			//boolean atLeastOneSuccessor = false;
 			final List<ProgramStateTransition> nxt 
 				= mAssistant.getProgramEnabledTransByThreadID(getProgramState(s), i);
 			
@@ -138,81 +131,7 @@ public class RunDoubleDFSReduction {
 					return;
 				}
 				
-				String mStateName = succN.toString();
-				if(!mName2StateSpace.keySet().contains(mStateName)) {
-					/*final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = new HashSet<>();
-					mStateSpace.add(succN);
-					mName2StateSpace.put(mStateName, mStateSpace);*/
-					final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = new HashSet<>();
-					mStateSpace.add(succN);
-					mName2StateSpace.put(mStateName, mStateSpace);
-					
-					mTrace.push(succ);
-					Dfs(N);
-					if(N == 1 && getNeverState(succ).isFinal()) {
-						mSeed = succ;
-						mTrace.push(succ);
-						Dfs(2);
-					}
-				}
-				else if(mName2StateSpace.keySet().contains(mStateName)) {
-					//final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = mName2StateSpace.get(mStateName);
-					final Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace = mName2StateSpace.get(mStateName);
-					
-					/*for(ThreadState ts : succ.getFirst().getThreadStates()) {
-						System.out.println(ts.getValuation().getKey());
-						for (String sss : ts.getValuation().getKey()) {
-							System.out.println(sss + "," + (sss == null));
-						}
-					}*/
-					
-					/*ProgramState p = succ.getFirst();
-					int pHash = p.getValuation().gethash();
-					for (Pair<Pair<ProgramState, NeverState>, Integer> ss : mStateSpace) {
-						int sHash = ss.getFirst().getFirst().getValuation().gethash();
-						if(pHash > sHash) {
-							continue;
-						}
-						else if (pHash < sHash) {
-							mStateSpace.add(succN);
-							mName2StateSpace.put(mStateName, mStateSpace);
-							mTrace.push(succ);
-							Dfs(N);
-							if(N == 1 && getNeverState(succ).isFinal()) {
-								mSeed = succ;
-								mTrace.push(succ);
-								Dfs(2);
-							}
-							break;
-						}
-						else {
-							if(inStateSpace(succ, ss.getFirst())) {
-								break;
-							}
-							else {
-								continue;
-							}
-						}
-					}*/
-					
-					if(!inStateSpace(succN, mStateSpace)) {
-						mStateSpace.add(succN);
-						mName2StateSpace.put(mStateName, mStateSpace);
-						mTrace.push(succ);
-						Dfs(N);
-						if(N == 1 && getNeverState(succ).isFinal()) {
-							mSeed = succ;
-							mTrace.push(succ);
-							Dfs(2);
-						}
-					}
-				}
-				else if(inTrace(succ)) {
-					notInStack = false;
-				}
-				atLeastOneSuccessor = true;
-				
-				/*if(!inStateSpace(succN)) {
+				if(!inStateSpace(succN)) {
 					
 					if (succN.toString().equals("[[[Thread0@L60-1, Thread2@L31, Thread3@L29-2, Thread4@L29-3], NeverState@T0_S3], 1]")) {
 						System.out.println(succN);
@@ -231,27 +150,19 @@ public class RunDoubleDFSReduction {
 						Dfs(2);
 					}
 				}
-				else if(inTrace(succ)) {
+				/*else if(inTrace(succ)) {
 					notInStack = false;
 				}
 				atLeastOneSuccessor = true;*/
 			}
-			if(!whetherAllUnsafe && notInStack && atLeastOneSuccessor) {
+			/*if(!whetherAllUnsafe && notInStack && atLeastOneSuccessor) {
 				break;
-			}
+			}*/
 		}
 		mTrace.pop();
 	}
 
-	/*private boolean inStateSpace(Pair<Pair<ProgramState, NeverState>, Integer> p) {
-		for(final Pair<Pair<ProgramState, NeverState>, Integer> s : mStateSpace) {
-			if(isEqualN(s, p)) {
-				return true;
-			}
-		}
-		return false;
-	}*/
-	private boolean inStateSpace(Pair<Pair<ProgramState, NeverState>, Integer> p, Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace) {
+	private boolean inStateSpace(Pair<Pair<ProgramState, NeverState>, Integer> p) {
 		for(final Pair<Pair<ProgramState, NeverState>, Integer> s : mStateSpace) {
 			if(isEqualN(s, p)) {
 				return true;
@@ -259,15 +170,14 @@ public class RunDoubleDFSReduction {
 		}
 		return false;
 	}
-	/*private boolean inStateSpace(Pair<ProgramState, NeverState> p, Pair<ProgramState, NeverState> s) {
-		if (!getNeverState(p).equals(getNeverState(s))) {
-			return false;
+	/*private boolean inStateSpace(Pair<Pair<ProgramState, NeverState>, Integer> p, Set<Pair<Pair<ProgramState, NeverState>, Integer>> mStateSpace) {
+		for(final Pair<Pair<ProgramState, NeverState>, Integer> s : mStateSpace) {
+			if(isEqualN(s, p)) {
+				return true;
+			}
 		}
-		else {
-			return getProgramState(p).equals(getProgramState(s));
-		}
+		return false;
 	}*/
-	
 	
 	private boolean inTrace(final Pair<ProgramState, NeverState> succ) {
 		for(int i = mTrace.size()-1; i >= 0; i--) {

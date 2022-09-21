@@ -44,6 +44,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction mRunSvvrlDebugToolchainAction;
 	private IWorkbenchAction mRunDoubleDFSToolchainAction;
 	private IWorkbenchAction mRunDoubleDFSReductionToolchainAction;
+	private IWorkbenchAction mRunDoubleDFSNoStateSpaceToolchainAction;
 	private IWorkbenchAction mRunSCCDFSToolchainAction;
 	private IWorkbenchAction mRunSCCDFSReductionToolchainAction;
 	
@@ -72,6 +73,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 				new RunDoubleDFSToolchainAction(mCore, mLogger, mController, window));
 		mRunDoubleDFSReductionToolchainAction = registerAction(
 				new RunDoubleDFSReductionToolchainAction(mCore, mLogger, mController, window));
+		mRunDoubleDFSNoStateSpaceToolchainAction = registerAction(
+				new RunDoubleDFSNoStateSpaceToolchainAction(mCore, mLogger, mController, window));
 		mRunSCCDFSToolchainAction = registerAction(
 				new RunSCCDFSToolchainAction(mCore, mLogger, mController, window));
 		mRunSCCDFSReductionToolchainAction = registerAction(
@@ -101,6 +104,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     	modelCheckerMenu.add(mRunSvvrlDebugToolchainAction);
     	modelCheckerMenu.add(mRunDoubleDFSToolchainAction);
     	modelCheckerMenu.add(mRunDoubleDFSReductionToolchainAction);
+    	modelCheckerMenu.add(mRunDoubleDFSNoStateSpaceToolchainAction);
     	modelCheckerMenu.add(mRunSCCDFSToolchainAction);
     	modelCheckerMenu.add(mRunSCCDFSReductionToolchainAction);
     	

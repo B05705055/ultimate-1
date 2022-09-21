@@ -19,5 +19,11 @@
             class="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfs.DoubleDFS">
       </impl>
    </extension>
+   <extension
+         point="de.uni_freiburg.informatik.ultimate.ep.generator">
+      <impl
+            class="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsnostatespace.DoubleDFSNoStateSpace">
+      </impl>
+   </extension>
 
 </plugin>

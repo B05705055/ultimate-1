@@ -111,10 +111,10 @@ public class ProgramState extends ValuationState<ProgramState> {
 		}
 		final int threadNumber = this.getThreadNumber();
 		
-		List<Boolean> match = new ArrayList<>();
+		/*List<Boolean> match = new ArrayList<>();
 		for(int i = 0; i < threadNumber; i++) {
 			match.add(false);
-		}
+		}*/
 		
 		/**
 		 * If two program state are equivalent, thread states must have
@@ -123,19 +123,32 @@ public class ProgramState extends ValuationState<ProgramState> {
 		ThreadState[] thisThreadStates = this.mThreadStates.values().toArray(new ThreadState[threadNumber]);
 		ThreadState[] anotherThreadStates = anotherProgramState.mThreadStates.values().toArray(new ThreadState[threadNumber]);
 		for(int i = 0; i < threadNumber; i++) {
+			boolean whetherAlldif = true;
+			for(int j = 0; j < threadNumber; j++) {
+				if(thisThreadStates[i].equals(anotherThreadStates[j])) {
+					whetherAlldif = false;
+					break;
+				}
+			}
+			if(whetherAlldif == true) {
+				return false;
+			}
+		}
+		return true;
+		/*for(int i = 0; i < threadNumber; i++) {
 			for(int j = 0; j < threadNumber; j++) {
 				if(!match.get(j) && thisThreadStates[i].equals(anotherThreadStates[j])) {
 					match.set(j, true);
 					break;
 				}
 			}
-		}
+		}*/
 		
 		/**
 		 * If there's any thread state that doesn't match, the two program states
 		 * are not equivalent.
 		 */
-		return !match.contains(false);
+		//return !match.contains(false);
 	}
 	
 	@Override
