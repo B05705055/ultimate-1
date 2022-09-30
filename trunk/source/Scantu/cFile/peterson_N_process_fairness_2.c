@@ -1,5 +1,6 @@
 // ltl invariant positive: <>[]AP(x == 2);
-//@ ltl invariant positive: (!(AP(fairness_label_verified == fairness_label_num) ==> []AP(fairness_label_verified == fairness_label_num)) U AP(fairness_label_end == 1)) ==> <>[]AP(x == 3);
+//@ ltl invariant positive: (!(AP(fairness_label_verified == fairness_label_num) ==> []AP(fairness_label_verified == fairness_label_num)) U AP(fairness_label_end == 1)) ==> <>[]AP(x == 2);
+// ltl invariant positive: [](AP(fairness_label_end == 1) ==> <>[]AP(x == 2));
 
 #include <stdio.h>
 #include <pthread.h>
@@ -35,7 +36,10 @@ void *thr(void* k){
 
     }
     // begin: critical section
-    x++;
+    int y = 0;
+	y = x;
+	y++;
+    x = y;
     //printf("%d\n",x);
     // end: critical section
     level[i] = -1;

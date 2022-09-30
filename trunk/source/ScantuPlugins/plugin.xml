@@ -25,5 +25,11 @@
             class="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsnostatespace.DoubleDFSNoStateSpace">
       </impl>
    </extension>
+   <extension
+         point="de.uni_freiburg.informatik.ultimate.ep.generator">
+      <impl
+            class="tw.ntu.svvrl.ultimate.scantu.plugins.doubledfsfairness.DoubleDFSFairness">
+      </impl>
+   </extension>
 
 </plugin>

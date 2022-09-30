@@ -1,4 +1,4 @@
-//@ ltl invariant positive: <>[]AP(x == 2);
+//@ ltl invariant positive: []<>[]AP(x == 2);
 // ltl invariant positive: []AP(\at(x, L) == 2);
 
 #include <pthread.h>
